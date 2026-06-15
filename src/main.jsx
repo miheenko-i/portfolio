@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './style.css'
 
+const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
+
 const selectedWork = [
   {
     title: 'AI workforce platform',
@@ -37,36 +39,30 @@ const selectedWork = [
   },
 ]
 
-const mediaPreviews = [
+const studioRange = [
   {
-    title: 'AI product interface',
-    type: 'UI shot',
-    image: '/media/ui-01.jpg',
+    title: 'AI product interface systems',
+    type: 'Product UI',
   },
   {
-    title: 'Brand marks and logo systems',
-    type: 'Logo design',
-    image: '/media/logo-01.jpg',
+    title: 'Brand marks and visual language',
+    type: 'Identity',
   },
   {
     title: 'Executive presentation systems',
     type: 'Slides',
-    image: '/media/slide-01.jpg',
   },
   {
-    title: 'Motion and video design',
-    type: 'Video frame',
-    image: '/media/video-01.jpg',
+    title: 'Motion, launch and campaign assets',
+    type: 'Media',
   },
   {
     title: 'Interactive product prototypes',
     type: 'Prototype',
-    image: '/media/prototype-01.jpg',
   },
   {
-    title: 'Campaign graphics and visuals',
-    type: 'Graphics',
-    image: '/media/graphics-01.jpg',
+    title: 'Dashboards and complex communication',
+    type: 'Systems',
   },
 ]
 
@@ -155,7 +151,8 @@ function App() {
         })
       },
       {
-        threshold: 0.12,
+        threshold: 0.16,
+        rootMargin: '0px 0px -8% 0px',
       },
     )
 
@@ -168,55 +165,54 @@ function App() {
     <main className="page">
       <header className="hero" id="top">
         <div className="topbar">
-          <a className="mark" href="#top" aria-label="Home">
-            IM
+          <a className="brand" href="#top" aria-label="Home">
+            <span>Ilia Mikheenko</span>
+            <span>Design + AI build</span>
           </a>
 
           <nav className="nav" aria-label="Main navigation">
             <a href="#work">Work</a>
-            <a href="#media">Media</a>
+            <a href="#studio">Studio</a>
             <a href="#resume">Resume</a>
             <a href="#skills">Skills</a>
             <a href="#contact">Contact</a>
           </nav>
+
+          <a className="mailLink" href="mailto:mobile.mih@gmail.com">
+            mobile.mih@gmail.com
+          </a>
         </div>
 
-        <div className="heroInner reveal">
-          <p className="eyebrow">Product, Web, UI / UX Designer and AI powered builder</p>
+        <div className="heroInner">
+          <div className="heroCopy reveal">
+            <p className="eyebrow">Product, Web, UI / UX Designer and AI powered builder</p>
 
-          <figure className="portrait">
-            <img src="/profile.png" alt="Ilya Mikheenko portrait" />
-          </figure>
+            <h1>
+              Design and media expertise for digital products, AI workflows and B2B
+              communication.
+            </h1>
 
-          <h1>Ilya Mikheenko</h1>
-
-          <p className="heroLead">
-            I work at the intersection of product, design, media and AI powered building, taking
-            ideas from rough concepts to shipped experiences, interactive prototypes, websites,
-            presentations and visual systems.
-          </p>
-
-          <div className="heroMeta">
-            <div>
-              <span>Product</span>
-              <p>UX / UI, websites, product interfaces</p>
-            </div>
-
-            <div>
-              <span>Media</span>
-              <p>Videos, presentations, branding, graphics</p>
-            </div>
-
-            <div>
-              <span>Prototype</span>
-              <p>Interactive prototypes, demos, frontend basics</p>
-            </div>
-
-            <div>
-              <span>AI</span>
-              <p>Codex, LLM workflows, Agentic AI</p>
-            </div>
+            <p className="heroLead">
+              I help teams turn early ideas into shipped experiences: interfaces, websites,
+              prototypes, decks, visual systems and implementation ready design.
+            </p>
           </div>
+
+          <aside className="heroAside reveal" style={{ '--i': 1 }}>
+            <figure className="portrait">
+              <img src={asset('/profile.png')} alt="Ilya Mikheenko portrait" />
+            </figure>
+
+            <div className="heroLinks">
+              {selectedWork.slice(0, 3).map((item, index) => (
+                <a href="#work" key={item.title} style={{ '--i': index }}>
+                  <span>{item.company}</span>
+                  <strong>{item.title}</strong>
+                  <small>{item.type}</small>
+                </a>
+              ))}
+            </div>
+          </aside>
         </div>
       </header>
 
@@ -227,60 +223,59 @@ function App() {
         </p>
       </section>
 
-      <section className="section reveal" id="work">
-        <div className="sectionHead">
-          <h2>Selected work</h2>
+      <section className="section workSection" id="work">
+        <div className="sectionHead reveal">
           <span>01</span>
+          <h2>Selected work</h2>
         </div>
 
-        <div className="workGrid">
-          {selectedWork.map((item) => (
-            <article className="workCard" key={item.title}>
-              <div className="cardMeta">
+        <div className="workList">
+          {selectedWork.map((item, index) => (
+            <article className="workRow reveal" key={item.title} style={{ '--i': index }}>
+              <div className="workIndex">{String(index + 1).padStart(2, '0')}</div>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+              <div className="workMeta">
+                <span>{item.company}</span>
                 <span>{item.type}</span>
                 <span>{item.year}</span>
               </div>
-
-              <div>
-                <h3>{item.title}</h3>
-                <p className="company">{item.company}</p>
-              </div>
-
-              <p>{item.text}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="section reveal" id="media">
-        <div className="sectionHead">
-          <h2>Media preview</h2>
+      <section className="section studioSection" id="studio">
+        <div className="sectionHead reveal">
           <span>02</span>
+          <h2>Studio range</h2>
         </div>
 
-        <div className="mediaGrid">
-          {mediaPreviews.map((item, index) => (
-            <article className={`mediaCard mediaCard${index + 1}`} key={item.title}>
-              <img src={item.image} alt={item.title} />
-
-              <div className="mediaOverlay">
-                <span>{item.type}</span>
-                <h3>{item.title}</h3>
-              </div>
+        <div className="studioGrid">
+          {studioRange.map((item, index) => (
+            <article className="studioItem reveal" key={item.title} style={{ '--i': index }}>
+              <span>{item.type}</span>
+              <h4>{item.title}</h4>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="section reveal" id="resume">
-        <div className="sectionHead">
-          <h2>Resume</h2>
+      <section className="section resumeSection" id="resume">
+        <div className="sectionHead reveal">
           <span>03</span>
+          <h2>Resume</h2>
         </div>
 
         <div className="resumeList">
-          {experience.map((item) => (
-            <article className="resumeItem" key={`${item.company}${item.period}`}>
+          {experience.map((item, index) => (
+            <article
+              className="resumeItem reveal"
+              key={`${item.company}${item.period}`}
+              style={{ '--i': index }}
+            >
               <p className="date">{item.period}</p>
 
               <div>
@@ -294,23 +289,25 @@ function App() {
         </div>
       </section>
 
-      <section className="section reveal" id="skills">
-        <div className="sectionHead">
-          <h2>Skills</h2>
+      <section className="section skillsSection" id="skills">
+        <div className="sectionHead reveal">
           <span>04</span>
+          <h2>Skills</h2>
         </div>
 
         <div className="skills">
-          {skills.map((skill) => (
-            <span key={skill}>{skill}</span>
+          {skills.map((skill, index) => (
+            <span className="reveal" style={{ '--i': index % 12 }} key={skill}>
+              {skill}
+            </span>
           ))}
         </div>
       </section>
 
       <section className="contact reveal" id="contact">
         <div className="sectionHead">
-          <h2>Contact</h2>
           <span>05</span>
+          <h2>Contact</h2>
         </div>
 
         <div className="contactGrid">
@@ -325,7 +322,7 @@ function App() {
               LinkedIn
             </a>
             <a href="https://omburo.com" target="_blank" rel="noreferrer">
-              Portfolio
+              omburo.com
             </a>
           </div>
         </div>
@@ -337,5 +334,5 @@ function App() {
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>,
 )
