@@ -66,6 +66,44 @@ const studioRange = [
   },
 ]
 
+const storySteps = [
+  {
+    period: 'School',
+    title: 'HTML after classes',
+    text:
+      'I first got hooked on the web by making simple HTML pages at school. It felt like a small superpower: write a few lines, refresh the browser, and something real appears.',
+    visual: 'html',
+  },
+  {
+    period: 'University',
+    title: 'First paid websites',
+    text:
+      'At university that curiosity turned into my first commercial orders. I learned to listen, explain decisions clearly, and finish work people could actually use.',
+    visual: 'web',
+  },
+  {
+    period: 'Early craft',
+    title: 'Street advertising and production',
+    text:
+      'Before product teams, I spent time around outdoor advertising and visual production, where design had to survive deadlines, formats, materials and real streets.',
+    visual: 'print',
+  },
+  {
+    period: 'Product shift',
+    title: 'Mobile startup work',
+    text:
+      'A mobile development startup pulled me closer to interfaces, flows and teams building fast. That is where design stopped being only a picture and became a product habit.',
+    visual: 'mobile',
+  },
+  {
+    period: 'Global teams',
+    title: 'Consulting and startup products',
+    text:
+      'International consulting sharpened my communication, and later startup work let me help founders shape products from rough ideas into usable systems. I try to bring calm energy, curiosity and good working relationships into every team.',
+    visual: 'product',
+  },
+]
+
 const experience = [
   {
     role: 'Web Designer',
@@ -209,13 +247,28 @@ function App() {
       </header>
 
       <section className="statement reveal">
-        <p>
-          I started with HTML pages at school, took my first commercial web projects at university,
-          moved through street advertising and visual production, joined a mobile development
-          startup, grew inside international consulting, and later partnered with startups to shape
-          products from early ideas to usable systems. That path made me practical, curious and easy
-          to work with.
-        </p>
+        <div className="storyIntro">
+          <p>
+            My path into design started with the web, but it picked up useful layers along the way:
+            craft, production, product thinking, consulting pace and startup pragmatism.
+          </p>
+        </div>
+
+        <div className="storyTimeline">
+          {storySteps.map((step, index) => (
+            <article className="storyStep reveal" key={step.title} style={{ '--i': index }}>
+              <div className="storyCopy">
+                <span>{step.period}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
+
+              <button className={`storyPreview preview-${step.visual}`} type="button">
+                <span>{step.title}</span>
+              </button>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="section workSection" id="work">
@@ -226,7 +279,7 @@ function App() {
         <div className="workList">
           {selectedWork.map((item, index) => (
             <article className="workRow reveal" key={item.title} style={{ '--i': index }}>
-              <div>
+              <div className="workInfo">
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
               </div>
