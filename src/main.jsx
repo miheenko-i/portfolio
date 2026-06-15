@@ -233,17 +233,29 @@ function App() {
 
       <section className="statement reveal">
         <p className="storyText">
-          I started with HTML pages after school
-          <button className="inlinePreview preview-html" type="button" aria-label="HTML after classes preview" />, then
-          took my first paid web projects at university
-          <button className="inlinePreview preview-web" type="button" aria-label="First websites preview" />. Street
-          advertising
-          <button className="inlinePreview preview-print" type="button" aria-label="Street advertising preview" /> taught
-          me craft and production; a mobile startup
-          <button className="inlinePreview preview-mobile" type="button" aria-label="Mobile startup preview" /> brought
-          me into product work; consulting and startup teams
-          <button className="inlinePreview preview-product" type="button" aria-label="Startup product preview" /> made
-          me sharper, calmer and better at helping people turn early ideas into useful systems.
+          I started with{' '}
+          <button className="storyHotspot" type="button">
+            HTML pages after school
+            <span className="inlinePreview preview-html" aria-hidden="true" />
+          </button>
+          , and at university took my first paid design jobs: outdoor ads, print materials and
+          business cards.{' '}
+          <button className="storyHotspot" type="button">
+            Print and street advertising
+            <span className="inlinePreview preview-print" aria-hidden="true" />
+          </button>{' '}
+          taught me craft, production and real-world deadlines; a{' '}
+          <button className="storyHotspot" type="button">
+            mobile startup
+            <span className="inlinePreview preview-mobile" aria-hidden="true" />
+          </button>{' '}
+          brought me into product work; international consulting made me sharper and calmer in
+          complex teams; and later startup collaborations made me better at helping people turn{' '}
+          <button className="storyHotspot" type="button">
+            early ideas into useful systems
+            <span className="inlinePreview preview-product" aria-hidden="true" />
+          </button>
+          .
         </p>
       </section>
 
