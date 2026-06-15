@@ -242,87 +242,65 @@ h1 {
   border-top: 1px solid var(--line);
 }
 
-.storyIntro p {
+.storyText {
   max-width: 1100px;
   font-size: var(--s3);
   line-height: 1.12;
   letter-spacing: -0.035em;
   font-weight: 400;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
-.storyTimeline {
-  margin-top: clamp(4rem, 8vw, 7rem);
-  border-top: 1px solid var(--line-strong);
-}
-
-.storyStep {
+.inlinePreview,
+.workPreview {
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(1.5rem, 3vw, 3rem);
-  align-items: center;
-  min-height: clamp(170px, 18vw, 240px);
-  padding-block: clamp(1.75rem, 4vw, 3rem);
-  border-bottom: 1px solid var(--line);
-}
-
-.storyCopy {
-  grid-column: 1 / span 7;
-  display: grid;
-  gap: 0.65rem;
-}
-
-.storyCopy span {
-  color: var(--muted);
-  font-size: var(--s-1);
-  letter-spacing: 0.03em;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
-.storyCopy h3 {
-  font-size: var(--s2);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
-  font-weight: 400;
-}
-
-.storyCopy p {
-  max-width: 700px;
-  color: var(--muted);
-  font-size: var(--s0);
-  line-height: 1.55;
-}
-
-.storyPreview {
-  grid-column: 9 / -1;
-  justify-self: end;
-  position: relative;
-  width: min(100%, 260px);
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 0;
   background: var(--paper);
   cursor: zoom-in;
-  transform-origin: 82% 50%;
   transition:
     transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 360ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 180ms ease;
 }
 
-.storyPreview:hover,
-.storyPreview:focus-visible {
+.inlinePreview {
+  width: clamp(3.6rem, 8vw, 6.6rem);
+  margin: 0 0.22em;
+  vertical-align: -0.42em;
+  transform-origin: 50% 70%;
+}
+
+.workPreview {
+  grid-column: 10 / -1;
+  justify-self: end;
+  width: min(100%, 260px);
+  transform-origin: 82% 50%;
+}
+
+.inlinePreview:hover,
+.inlinePreview:focus-visible,
+.workPreview:hover,
+.workPreview:focus-visible {
   z-index: 4;
   border-color: var(--line-strong);
   box-shadow: 0 1.2rem 4rem rgba(5, 5, 5, 0.14);
   outline: 0;
+}
+
+.inlinePreview:hover,
+.inlinePreview:focus-visible {
+  transform: scale(2.85);
+}
+
+.workPreview:hover,
+.workPreview:focus-visible {
   transform: scale(1.72);
 }
 
-.storyPreview span {
+.workPreview span {
   position: absolute;
   left: 0.8rem;
   bottom: 0.75rem;
@@ -334,8 +312,10 @@ h1 {
   text-align: left;
 }
 
-.storyPreview::before,
-.storyPreview::after {
+.inlinePreview::before,
+.inlinePreview::after,
+.workPreview::before,
+.workPreview::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -498,6 +478,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: center;
   padding-block: clamp(2rem, 4vw, 3.25rem);
   border-bottom: 1px solid var(--line);
   transition: background-color 220ms ease, padding-inline 220ms ease;
@@ -508,22 +489,36 @@ h1 {
 }
 
 .workInfo {
-  grid-column: 1 / span 7;
+  grid-column: 1 / span 6;
   padding-right: clamp(1rem, 4vw, 4rem);
 }
 
 .workMeta {
-  grid-column: 9 / -1;
+  grid-column: 7 / span 2;
   display: grid;
   align-content: start;
-  justify-items: end;
+  justify-items: start;
   gap: 0.45rem;
-  text-align: right;
+  text-align: left;
+}
+
+.workInfo > span,
+.workRow h3,
+.resumeItem h3 {
+  margin-bottom: 0.75rem;
+}
+
+.workInfo > span {
+  display: block;
+  color: var(--muted);
+  font-size: var(--s-1);
+  letter-spacing: 0.03em;
+  line-height: 1.22;
+  text-transform: uppercase;
 }
 
 .workRow h3,
 .resumeItem h3 {
-  margin-bottom: 0.75rem;
   font-size: var(--s2);
   line-height: 1.12;
   letter-spacing: -0.025em;
@@ -786,8 +781,7 @@ h1 {
   .heroAside,
   .sectionHead h2,
   .viewToggle,
-  .storyCopy,
-  .storyPreview,
+  .workPreview,
   .workInfo,
   .workMeta,
   .studioItem,
@@ -812,20 +806,25 @@ h1 {
     border-left: 0;
   }
 
-  .storyStep {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .storyPreview {
+  .workPreview {
     justify-self: start;
     width: min(74vw, 260px);
     transform-origin: 0 50%;
   }
 
-  .storyPreview:hover,
-  .storyPreview:focus-visible {
+  .workPreview:hover,
+  .workPreview:focus-visible {
     transform: scale(1.22);
+  }
+
+  .inlinePreview {
+    width: clamp(3rem, 18vw, 4.8rem);
+    transform-origin: 0 60%;
+  }
+
+  .inlinePreview:hover,
+  .inlinePreview:focus-visible {
+    transform: scale(1.8);
   }
 
   .portrait {

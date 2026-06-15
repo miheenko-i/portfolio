@@ -10,6 +10,7 @@ const selectedWork = [
     company: 'Everworker',
     type: 'Product, web, AI',
     year: '2024 / 2026',
+    visual: 'product',
     text:
       'Product and web experiences for an AI workforce platform, including agent pages, platform pages, onboarding, workflow UI, diagrams, marketing assets, HubSpot pages and implementation support.',
   },
@@ -18,6 +19,7 @@ const selectedWork = [
     company: 'Simplenight',
     type: 'Marketplace UX',
     year: '2025 / 2026',
+    visual: 'mobile',
     text:
       'Booking journeys, itinerary management, account pages, payment flows, post purchase experiences, white label flows, dashboards and partner platforms.',
   },
@@ -26,6 +28,7 @@ const selectedWork = [
     company: 'ISDK',
     type: 'UI / UX, media, web',
     year: '2022 / 2026',
+    visual: 'web',
     text:
       'UI prototypes, dashboards, promo websites, landing pages, pre sales presentations, blog visuals and design systems for internal products and client projects.',
   },
@@ -34,6 +37,7 @@ const selectedWork = [
     company: 'McKinsey & Company',
     type: 'Decks and systems',
     year: '2019 / 2022',
+    visual: 'print',
     text:
       'Executive decks, workshops, print materials, Tableau and Power BI dashboard improvement, complex visual communication and design process coordination.',
   },
@@ -63,44 +67,6 @@ const studioRange = [
   {
     title: 'Dashboards and complex communication',
     type: 'Systems',
-  },
-]
-
-const storySteps = [
-  {
-    period: 'School',
-    title: 'HTML after classes',
-    text:
-      'I first got hooked on the web by making simple HTML pages at school. It felt like a small superpower: write a few lines, refresh the browser, and something real appears.',
-    visual: 'html',
-  },
-  {
-    period: 'University',
-    title: 'First paid websites',
-    text:
-      'At university that curiosity turned into my first commercial orders. I learned to listen, explain decisions clearly, and finish work people could actually use.',
-    visual: 'web',
-  },
-  {
-    period: 'Early craft',
-    title: 'Street advertising and production',
-    text:
-      'Before product teams, I spent time around outdoor advertising and visual production, where design had to survive deadlines, formats, materials and real streets.',
-    visual: 'print',
-  },
-  {
-    period: 'Product shift',
-    title: 'Mobile startup work',
-    text:
-      'A mobile development startup pulled me closer to interfaces, flows and teams building fast. That is where design stopped being only a picture and became a product habit.',
-    visual: 'mobile',
-  },
-  {
-    period: 'Global teams',
-    title: 'Consulting and startup products',
-    text:
-      'International consulting sharpened my communication, and later startup work let me help founders shape products from rough ideas into usable systems. I try to bring calm energy, curiosity and good working relationships into every team.',
-    visual: 'product',
   },
 ]
 
@@ -247,28 +213,19 @@ function App() {
       </header>
 
       <section className="statement reveal">
-        <div className="storyIntro">
-          <p>
-            My path into design started with the web, but it picked up useful layers along the way:
-            craft, production, product thinking, consulting pace and startup pragmatism.
-          </p>
-        </div>
-
-        <div className="storyTimeline">
-          {storySteps.map((step, index) => (
-            <article className="storyStep reveal" key={step.title} style={{ '--i': index }}>
-              <div className="storyCopy">
-                <span>{step.period}</span>
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
-              </div>
-
-              <button className={`storyPreview preview-${step.visual}`} type="button">
-                <span>{step.title}</span>
-              </button>
-            </article>
-          ))}
-        </div>
+        <p className="storyText">
+          I started with HTML pages after school
+          <button className="inlinePreview preview-html" type="button" aria-label="HTML after classes preview" />, then
+          took my first paid web projects at university
+          <button className="inlinePreview preview-web" type="button" aria-label="First websites preview" />. Street
+          advertising
+          <button className="inlinePreview preview-print" type="button" aria-label="Street advertising preview" /> taught
+          me craft and production; a mobile startup
+          <button className="inlinePreview preview-mobile" type="button" aria-label="Mobile startup preview" /> brought
+          me into product work; consulting and startup teams
+          <button className="inlinePreview preview-product" type="button" aria-label="Startup product preview" /> made
+          me sharper, calmer and better at helping people turn early ideas into useful systems.
+        </p>
       </section>
 
       <section className="section workSection" id="work">
@@ -280,14 +237,17 @@ function App() {
           {selectedWork.map((item, index) => (
             <article className="workRow reveal" key={item.title} style={{ '--i': index }}>
               <div className="workInfo">
+                <span>{item.company}</span>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
               </div>
               <div className="workMeta">
-                <span>{item.company}</span>
                 <span>{item.type}</span>
                 <span>{item.year}</span>
               </div>
+              <button className={`workPreview preview-${item.visual}`} type="button">
+                <span>{item.title}</span>
+              </button>
             </article>
           ))}
         </div>
