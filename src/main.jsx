@@ -205,7 +205,10 @@ function App() {
 
         <div className="heroInner">
           <div className="heroCopy">
-            <p className="eyebrow">Product, Web, UI / UX Designer and AI powered builder</p>
+            <div className="heroStatus">
+              <p className="eyebrow">Product, Web, UI / UX Designer and AI powered builder</p>
+              <span>Available for selected projects</span>
+            </div>
 
             <h1>
               Design and media expertise for digital products, AI workflows and B2B
@@ -216,12 +219,38 @@ function App() {
               I help teams turn early ideas into shipped experiences: interfaces, websites,
               prototypes, decks, visual systems and implementation ready design.
             </p>
+
+            <div className="heroActions">
+              <a href="#work">Selected work</a>
+              <a href="mailto:mobile.mih@gmail.com">Start a project</a>
+            </div>
           </div>
 
           <aside className="heroAside">
-            <figure className="portrait">
-              <img src={asset('/profile.png')} alt="Ilya Mikheenko portrait" />
-            </figure>
+            <div className="heroVisual">
+              <figure className="portrait">
+                <img src={asset('/profile.png')} alt="Ilya Mikheenko portrait" />
+              </figure>
+
+              <div className="heroPreview preview-product" aria-hidden="true">
+                <span>Product systems</span>
+              </div>
+            </div>
+
+            <div className="heroTicker" aria-label="Core capabilities">
+              <div>
+                <span>Product design</span>
+                <span>Web systems</span>
+                <span>AI workflows</span>
+                <span>Decks</span>
+                <span>Prototypes</span>
+                <span>Product design</span>
+                <span>Web systems</span>
+                <span>AI workflows</span>
+                <span>Decks</span>
+                <span>Prototypes</span>
+              </div>
+            </div>
           </aside>
         </div>
       </header>
