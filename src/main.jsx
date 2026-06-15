@@ -207,7 +207,6 @@ function App() {
           <div className="heroCopy">
             <div className="heroStatus">
               <p className="eyebrow">Product, Web, UI / UX Designer and AI powered builder</p>
-              <span>Available for selected projects</span>
             </div>
 
             <h1>
@@ -227,29 +226,13 @@ function App() {
           </div>
 
           <aside className="heroAside">
-            <div className="heroVisual">
-              <figure className="portrait">
-                <img src={asset('/profile.png')} alt="Ilya Mikheenko portrait" />
-              </figure>
+            <figure className="portrait">
+              <img src={asset('/profile.png')} alt="Ilya Mikheenko portrait" />
+            </figure>
 
-              <div className="heroPreview preview-product" aria-hidden="true">
-                <span>Product systems</span>
-              </div>
-            </div>
-
-            <div className="heroTicker" aria-label="Core capabilities">
-              <div>
-                <span>Product design</span>
-                <span>Web systems</span>
-                <span>AI workflows</span>
-                <span>Decks</span>
-                <span>Prototypes</span>
-                <span>Product design</span>
-                <span>Web systems</span>
-                <span>AI workflows</span>
-                <span>Decks</span>
-                <span>Prototypes</span>
-              </div>
+            <div className="heroAsideText">
+              <span>Based in product, media and AI workflows</span>
+              <p>Design systems, interface logic, launch assets and clear communication.</p>
             </div>
           </aside>
         </div>

@@ -77,7 +77,7 @@ figure {
 .nav,
 .mailLink,
 .eyebrow,
-.heroStatus span,
+.heroAsideText span,
 .workMeta,
 .company,
 .date,
@@ -103,7 +103,7 @@ figure {
 .mailLink,
 .nav a,
 .eyebrow,
-.heroStatus span,
+.heroAsideText span,
 .workMeta,
 .company,
 .date,
@@ -160,7 +160,7 @@ figure {
 }
 
 .hero {
-  min-height: clamp(720px, 88vh, 900px);
+  min-height: clamp(700px, 88vh, 900px);
   display: grid;
   grid-template-rows: auto 1fr;
 }
@@ -169,7 +169,7 @@ figure {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: clamp(1.5rem, 3vw, 3rem);
-  align-items: stretch;
+  align-items: end;
   padding-block: clamp(5rem, 9vw, 8rem) clamp(4rem, 8vw, 7rem);
 }
 
@@ -184,25 +184,7 @@ figure {
 }
 
 .heroStatus {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem 1rem;
-  align-items: center;
-}
-
-.heroStatus span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.heroStatus span::before {
-  content: '';
-  width: 0.48rem;
-  height: 0.48rem;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulseDot 1800ms ease-in-out infinite;
+  display: block;
 }
 
 h1 {
@@ -265,27 +247,23 @@ h1 {
 .heroAside {
   grid-column: 10 / -1;
   display: grid;
-  gap: 1.1rem;
-  align-content: start;
-  padding-top: clamp(1rem, 4vw, 4rem);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-content: end;
+  align-self: stretch;
   padding-left: 0;
   border-left: 0;
 }
 
-.heroVisual {
-  position: relative;
-  min-height: clamp(360px, 42vw, 540px);
-}
-
 .portrait {
-  width: min(78%, 320px);
-  aspect-ratio: 4 / 5;
+  width: min(100%, 360px);
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   background: var(--paper);
   border: 0;
   max-width: none;
   justify-self: end;
-  margin-left: auto;
+  align-self: start;
 }
 
 .portrait img {
@@ -304,63 +282,19 @@ h1 {
   transform: scale(1.045);
 }
 
-.heroPreview {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: min(62%, 250px);
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background: var(--paper);
-  box-shadow: 0 1rem 3rem rgba(5, 5, 5, 0.08);
-  transition:
-    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 360ms cubic-bezier(0.22, 1, 0.36, 1);
+.heroAsideText {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 320px;
+  justify-self: end;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
 }
 
-.heroVisual:hover .heroPreview {
-  box-shadow: 0 1.5rem 4rem rgba(5, 5, 5, 0.12);
-  transform: translateY(-0.6rem) scale(1.04);
-}
-
-.heroPreview span {
-  position: absolute;
-  left: 0.8rem;
-  bottom: 0.75rem;
-  z-index: 2;
-  color: var(--text);
-  font-size: 0.72rem;
-  line-height: 1.1;
-}
-
-.heroPreview::before,
-.heroPreview::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-}
-
-.heroTicker {
-  max-width: 100%;
-  overflow: hidden;
-  border-block: 1px solid var(--line);
-  padding-block: 0.78rem;
+.heroAsideText p {
   color: var(--muted);
-  white-space: nowrap;
-}
-
-.heroTicker div {
-  display: inline-flex;
-  gap: 1.2rem;
-  min-width: max-content;
-  animation: tickerMove 18s linear infinite;
-}
-
-.heroTicker span {
-  font-size: var(--s-1);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  font-size: var(--s0);
+  line-height: 1.45;
 }
 
 .statement {
@@ -856,29 +790,6 @@ h1 {
   }
 }
 
-@keyframes tickerMove {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes pulseDot {
-  0%,
-  100% {
-    opacity: 0.36;
-    transform: scale(0.82);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 .contact {
   min-height: min(76vh, 760px);
   display: flex;
@@ -949,12 +860,9 @@ h1 {
     padding-top: 1rem;
   }
 
-  .heroVisual {
-    min-height: 420px;
-  }
-
-  .heroTicker {
+  .heroAsideText {
     align-self: end;
+    justify-self: start;
   }
 }
 
@@ -1060,12 +968,8 @@ h1 {
     justify-self: start;
   }
 
-  .heroVisual {
-    min-height: 300px;
-  }
-
-  .heroPreview {
-    width: min(52vw, 190px);
+  .heroAsideText {
+    max-width: 340px;
   }
 
   h1 {
