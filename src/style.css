@@ -1,20 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap');
 
 :root {
-  --bg: #f6f4ef;
-  --paper: #fffdf8;
-  --text: #0b0b0a;
-  --muted: rgba(11, 11, 10, 0.58);
-  --line: rgba(11, 11, 10, 0.16);
-  --line-strong: rgba(11, 11, 10, 0.34);
-  --accent: #d9ff54;
+  --bg: #ffffff;
+  --paper: #f7f7f4;
+  --text: #050505;
+  --muted: rgba(5, 5, 5, 0.58);
+  --line: rgba(5, 5, 5, 0.14);
+  --line-strong: rgba(5, 5, 5, 0.9);
+  --accent: #ff3b30;
 
-  --s-1: 0.78rem;
-  --s0: 1rem;
-  --s1: 1.24rem;
-  --s2: 1.72rem;
-  --s3: 2.58rem;
-  --s4: 5.6rem;
+  --s-1: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
+  --s0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --s1: clamp(1.25rem, 1.1rem + 0.8vw, 1.8rem);
+  --s2: clamp(1.55rem, 1.2rem + 1.35vw, 2.35rem);
+  --s3: clamp(2.25rem, 1.75rem + 2.25vw, 3.7rem);
+  --s4: clamp(3.35rem, 2.45rem + 3.7vw, 6.25rem);
 
   --page: 2rem;
   --section: 7rem;
@@ -34,7 +34,7 @@ body {
   color: var(--text);
   font-family: 'Geist', Arial, Helvetica, sans-serif;
   font-size: var(--s0);
-  line-height: 1.42;
+  line-height: 1.45;
   text-rendering: geometricPrecision;
 }
 
@@ -62,16 +62,16 @@ figure {
 .statement,
 .section,
 .contact {
-  width: min(100% - var(--page) * 2, 1440px);
+  width: min(100% - var(--page) * 2, 1360px);
   margin-inline: auto;
 }
 
 .topbar {
-  min-height: 76px;
+  min-height: 80px;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: minmax(180px, 3fr) minmax(300px, 6fr) minmax(180px, 3fr);
   align-items: start;
-  gap: 2rem;
+  gap: 1px;
   padding-block: 1.2rem;
   border-bottom: 1px solid var(--line);
 }
@@ -91,7 +91,7 @@ figure {
   font-family: 'Geist Mono', monospace;
   font-size: var(--s-1);
   line-height: 1.22;
-  letter-spacing: 0;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
 }
 
@@ -99,6 +99,10 @@ figure {
   display: grid;
   gap: 0.12rem;
   width: max-content;
+}
+
+.brand span:first-child {
+  color: var(--accent);
 }
 
 .brand span:last-child,
@@ -118,8 +122,10 @@ figure {
 .nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.4rem;
+  justify-content: flex-start;
+  gap: clamp(1rem, 2vw, 2rem);
+  padding-left: 1rem;
+  border-left: 1px solid var(--line);
 }
 
 .nav a,
@@ -162,30 +168,32 @@ figure {
 }
 
 .hero {
-  min-height: min(900px, 94vh);
+  min-height: min(920px, 94vh);
   display: grid;
   grid-template-rows: auto 1fr;
 }
 
 .heroInner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 30rem);
-  gap: 3rem;
-  align-items: end;
-  padding-block: 4.5rem 2rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1px;
+  align-items: stretch;
+  padding-block: clamp(3rem, 7vw, 6rem) 2rem;
 }
 
 .heroCopy {
+  grid-column: span 8;
   display: grid;
-  gap: 1.8rem;
-  align-self: center;
+  align-content: center;
+  gap: clamp(1.4rem, 3vw, 2.4rem);
+  padding-right: clamp(2rem, 5vw, 5rem);
 }
 
 h1 {
-  max-width: 1060px;
+  max-width: 1020px;
   font-size: var(--s4);
-  line-height: 0.94;
-  letter-spacing: 0;
+  line-height: 0.9;
+  letter-spacing: -0.075em;
   font-weight: 500;
   text-wrap: balance;
 }
@@ -194,21 +202,25 @@ h1 {
   max-width: 720px;
   color: var(--muted);
   font-size: var(--s1);
-  line-height: 1.28;
-  letter-spacing: 0;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
   text-wrap: balance;
 }
 
 .heroAside {
+  grid-column: span 4;
   display: grid;
   gap: 1rem;
+  align-content: end;
+  padding-left: clamp(1rem, 2.5vw, 2rem);
+  border-left: 1px solid var(--line);
 }
 
 .portrait {
   aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--paper);
-  border: 1px solid var(--line);
+  border: 0;
 }
 
 .portrait img {
@@ -242,7 +254,7 @@ h1 {
 }
 
 .heroLinks a:hover {
-  background: rgba(217, 255, 84, 0.28);
+  background: var(--paper);
   transform: translateX(0.35rem);
 }
 
@@ -263,8 +275,8 @@ h1 {
 .statement p {
   max-width: 1100px;
   font-size: var(--s3);
-  line-height: 1.02;
-  letter-spacing: 0;
+  line-height: 0.98;
+  letter-spacing: -0.065em;
   font-weight: 500;
   text-wrap: balance;
 }
@@ -277,17 +289,24 @@ h1 {
 
 .sectionHead {
   display: grid;
-  grid-template-columns: 8rem minmax(0, 1fr);
-  gap: 2rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1px;
   align-items: start;
-  margin-bottom: 3rem;
+  margin-bottom: clamp(2.25rem, 5vw, 4rem);
 }
 
 .sectionHead h2 {
+  grid-column: 4 / -1;
   font-size: var(--s3);
-  line-height: 1;
-  letter-spacing: 0;
+  line-height: 0.96;
+  letter-spacing: -0.065em;
   font-weight: 500;
+}
+
+.sectionHead span {
+  grid-column: span 3;
+  padding-top: 0.35rem;
+  color: var(--accent);
 }
 
 .workList,
@@ -297,24 +316,43 @@ h1 {
 
 .workRow {
   display: grid;
-  grid-template-columns: 4rem minmax(0, 1.2fr) minmax(220px, 0.52fr);
-  gap: 2rem;
-  padding-block: 1.55rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1px;
+  padding-block: clamp(1.25rem, 3vw, 2rem);
   border-bottom: 1px solid var(--line);
   transition: background-color 220ms ease, padding-inline 220ms ease;
 }
 
 .workRow:hover {
-  padding-inline: 1rem;
+  padding-inline: 0.8rem;
   background: var(--paper);
+}
+
+.workIndex {
+  grid-column: span 1;
+  color: var(--accent);
+}
+
+.workRow > div:nth-child(2) {
+  grid-column: span 7;
+  padding-right: clamp(1rem, 4vw, 4rem);
+}
+
+.workMeta {
+  grid-column: span 4;
+  display: grid;
+  align-content: start;
+  justify-items: end;
+  gap: 0.45rem;
+  text-align: right;
 }
 
 .workRow h3,
 .resumeItem h3 {
   margin-bottom: 0.5rem;
   font-size: var(--s2);
-  line-height: 1.08;
-  letter-spacing: 0;
+  line-height: 1;
+  letter-spacing: -0.055em;
   font-weight: 500;
 }
 
@@ -324,40 +362,32 @@ h1 {
   max-width: 720px;
   color: var(--muted);
   font-size: var(--s0);
-  line-height: 1.48;
-  letter-spacing: 0;
-}
-
-.workMeta {
-  display: grid;
-  align-content: start;
-  justify-items: end;
-  gap: 0.45rem;
-  text-align: right;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
 }
 
 .studioGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
   border-top: 1px solid var(--line-strong);
-  border-left: 1px solid var(--line);
 }
 
 .studioItem {
+  grid-column: span 4;
   min-height: 220px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 2rem;
   padding: 1.25rem;
-  background: rgba(255, 253, 248, 0.44);
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  background: var(--bg);
   transition: background-color 220ms ease, transform 220ms ease;
 }
 
 .studioItem:hover {
-  background: var(--accent);
+  background: var(--paper);
   transform: translateY(-0.35rem);
 }
 
@@ -368,17 +398,29 @@ h1 {
 .studioItem h4 {
   max-width: 18rem;
   font-size: var(--s2);
-  line-height: 1.08;
-  letter-spacing: 0;
+  line-height: 1;
+  letter-spacing: -0.055em;
   font-weight: 500;
 }
 
 .resumeItem {
   display: grid;
-  grid-template-columns: minmax(140px, 0.55fr) minmax(220px, 0.85fr) minmax(0, 1.35fr);
-  gap: 2.5rem;
-  padding-block: 1.35rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1px;
+  padding-block: clamp(1.25rem, 3vw, 2rem);
   border-bottom: 1px solid var(--line);
+}
+
+.resumeItem > .date {
+  grid-column: span 3;
+}
+
+.resumeItem > div {
+  grid-column: span 3;
+}
+
+.resumeItem > p:last-child {
+  grid-column: span 6;
 }
 
 .resumeItem:last-child {
@@ -396,7 +438,7 @@ h1 {
   padding: 0.58rem 0.78rem 0.64rem;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 253, 248, 0.52);
+  background: var(--bg);
   color: var(--muted);
   font-family: 'Geist Mono', monospace;
   font-size: var(--s-1);
@@ -407,9 +449,9 @@ h1 {
 }
 
 .skills span:hover {
-  background: var(--accent);
+  background: var(--text);
   border-color: var(--text);
-  color: var(--text);
+  color: var(--bg);
 }
 
 .contact {
@@ -422,12 +464,17 @@ h1 {
 
 .contactGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
-  gap: 4rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1px;
   align-items: end;
 }
 
+.contactGrid > p {
+  grid-column: 4 / span 5;
+}
+
 .links {
+  grid-column: 9 / -1;
   display: grid;
   gap: 0.72rem;
   justify-items: start;
@@ -435,8 +482,8 @@ h1 {
 
 .links a {
   font-size: var(--s2);
-  line-height: 1.08;
-  letter-spacing: 0;
+  line-height: 1;
+  letter-spacing: -0.055em;
 }
 
 .reveal {
@@ -455,17 +502,26 @@ h1 {
 
 @media (max-width: 1120px) {
   :root {
-    --s4: 4.5rem;
     --section: 5.5rem;
   }
 
   .heroInner {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .heroCopy {
+    grid-column: span 12;
+    padding-right: 0;
   }
 
   .heroAside {
-    grid-template-columns: minmax(220px, 0.45fr) 1fr;
+    grid-column: span 12;
+    grid-template-columns: minmax(220px, 0.42fr) 1fr;
     align-items: end;
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
   }
 }
 
@@ -506,6 +562,27 @@ h1 {
   .contactGrid,
   .sectionHead {
     grid-template-columns: 1fr;
+  }
+
+  .heroCopy,
+  .heroAside,
+  .sectionHead h2,
+  .sectionHead span,
+  .workIndex,
+  .workRow > div:nth-child(2),
+  .workMeta,
+  .studioItem,
+  .resumeItem > .date,
+  .resumeItem > div,
+  .resumeItem > p:last-child,
+  .contactGrid > p,
+  .links {
+    grid-column: auto;
+  }
+
+  .nav {
+    padding-left: 0;
+    border-left: 0;
   }
 
   .portrait {
