@@ -163,7 +163,7 @@ function App() {
 
   return (
     <main className="page">
-      <header className="hero" id="top">
+      <header className="hero reveal" id="top">
         <div className="topbar">
           <a className="brand" href="#top" aria-label="Home">
             <span>Ilia Mikheenko</span>
@@ -184,7 +184,7 @@ function App() {
         </div>
 
         <div className="heroInner">
-          <div className="heroCopy reveal">
+          <div className="heroCopy">
             <p className="eyebrow">Product, Web, UI / UX Designer and AI powered builder</p>
 
             <h1>
@@ -198,20 +198,10 @@ function App() {
             </p>
           </div>
 
-          <aside className="heroAside reveal" style={{ '--i': 1 }}>
+          <aside className="heroAside">
             <figure className="portrait">
               <img src={asset('/profile.png')} alt="Ilya Mikheenko portrait" />
             </figure>
-
-            <div className="heroLinks">
-              {selectedWork.slice(0, 3).map((item, index) => (
-                <a href="#work" key={item.title} style={{ '--i': index }}>
-                  <span>{item.company}</span>
-                  <strong>{item.title}</strong>
-                  <small>{item.type}</small>
-                </a>
-              ))}
-            </div>
           </aside>
         </div>
       </header>
@@ -225,14 +215,12 @@ function App() {
 
       <section className="section workSection" id="work">
         <div className="sectionHead reveal">
-          <span>01</span>
           <h2>Selected work</h2>
         </div>
 
         <div className="workList">
           {selectedWork.map((item, index) => (
             <article className="workRow reveal" key={item.title} style={{ '--i': index }}>
-              <div className="workIndex">{String(index + 1).padStart(2, '0')}</div>
               <div>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
@@ -249,7 +237,6 @@ function App() {
 
       <section className="section studioSection" id="studio">
         <div className="sectionHead reveal">
-          <span>02</span>
           <h2>Studio range</h2>
         </div>
 
@@ -265,7 +252,6 @@ function App() {
 
       <section className="section resumeSection" id="resume">
         <div className="sectionHead reveal">
-          <span>03</span>
           <h2>Resume</h2>
         </div>
 
@@ -291,7 +277,6 @@ function App() {
 
       <section className="section skillsSection" id="skills">
         <div className="sectionHead reveal">
-          <span>04</span>
           <h2>Skills</h2>
         </div>
 
@@ -306,7 +291,6 @@ function App() {
 
       <section className="contact reveal" id="contact">
         <div className="sectionHead">
-          <span>05</span>
           <h2>Contact</h2>
         </div>
 
