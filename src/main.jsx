@@ -125,15 +125,10 @@ const skillGroups = [
     title: 'Web and AI',
     items: [
       'Web design',
-      'Basic frontend',
-      'React basics',
       'CSS',
-      'JavaScript',
       'HubSpot',
       'AI workflows',
       'AI agents',
-      'LLMs',
-      'Codex',
       'Automation',
     ],
   },
@@ -149,7 +144,7 @@ const skillGroups = [
   },
   {
     title: 'Tools',
-    items: ['Figma', 'Adobe Creative Suite', 'PowerPoint', 'Keynote', 'Google Slides'],
+    items: ['Figma', 'Adobe Creative Suite', 'PowerPoint', 'Google Slides', 'Codex', 'LLMs'],
   },
 ]
 
