@@ -108,38 +108,57 @@ const experience = [
   },
 ]
 
-const skills = [
-  'Product design',
-  'UX / UI',
-  'Web design',
-  'Media design',
-  'Video design',
-  'Presentation design',
-  'Graphics',
-  'Interactive prototypes',
-  'Product demos',
-  'AI workflows',
-  'Codex',
-  'AI agents',
-  'Agentic AI',
-  'LLMs',
-  'Coding tools',
-  'Automation',
-  'HubSpot',
-  'Basic frontend',
-  'React basics',
-  'CSS',
-  'JavaScript',
-  'Prototyping',
-  'Design systems',
-  'Brand identity',
-  'Dashboards',
-  'Figma',
-  'Adobe Creative Suite',
-  'PowerPoint',
-  'Keynote',
-  'Google Slides',
+const skillGroups = [
+  {
+    title: 'Product and UX',
+    items: [
+      'Product design',
+      'UX / UI',
+      'Interactive prototypes',
+      'Product demos',
+      'Design systems',
+      'Dashboards',
+      'Prototyping',
+    ],
+  },
+  {
+    title: 'Web and AI',
+    items: [
+      'Web design',
+      'Basic frontend',
+      'React basics',
+      'CSS',
+      'JavaScript',
+      'HubSpot',
+      'AI workflows',
+      'AI agents',
+      'LLMs',
+      'Codex',
+      'Automation',
+    ],
+  },
+  {
+    title: 'Media and communication',
+    items: [
+      'Media design',
+      'Video design',
+      'Presentation design',
+      'Graphics',
+      'Brand identity',
+    ],
+  },
+  {
+    title: 'Tools',
+    items: ['Figma', 'Adobe Creative Suite', 'PowerPoint', 'Keynote', 'Google Slides'],
+  },
 ]
+
+const skills = skillGroups.flatMap((group) =>
+  group.items.map((skill) => ({
+    group: group.title,
+    name: skill,
+  })),
+)
 
 function App() {
   const [skillsView, setSkillsView] = useState('tags')
@@ -317,13 +336,30 @@ function App() {
           </div>
         </div>
 
-        <div className={`skills skills-${skillsView}`} key={skillsView}>
-          {skills.map((skill, index) => (
-            <span className="reveal" style={{ '--i': index % 12 }} key={skill}>
-              {skill}
-            </span>
-          ))}
-        </div>
+        {skillsView === 'tags' ? (
+          <div className="skills skills-tags" key="tags">
+            {skills.map((skill, index) => (
+              <span style={{ '--i': index % 12 }} key={skill.name}>
+                {skill.name}
+              </span>
+            ))}
+          </div>
+        ) : (
+          <div className="skills skills-list" key="list">
+            {skillGroups.map((group, groupIndex) => (
+              <section className="skillGroup" key={group.title} style={{ '--i': groupIndex }}>
+                <h3>{group.title}</h3>
+                <div>
+                  {group.items.map((skill, index) => (
+                    <span style={{ '--i': index % 12 }} key={skill}>
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="contact reveal" id="contact">

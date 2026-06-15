@@ -609,10 +609,11 @@ h1 {
 
 .skills-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: clamp(1.5rem, 3vw, 3rem);
-  row-gap: 0;
+  row-gap: clamp(2rem, 4vw, 3rem);
   border-top: 1px solid var(--line-strong);
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .skills span {
@@ -626,7 +627,30 @@ h1 {
   line-height: 1;
   letter-spacing: 0;
   text-transform: uppercase;
+  animation: skillItemIn 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 24ms);
   transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.skillGroup {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  animation: skillItemIn 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+.skillGroup h3 {
+  color: var(--muted);
+  font-size: var(--s-1);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.skillGroup div {
+  display: grid;
 }
 
 .skills-list span {
@@ -658,6 +682,18 @@ h1 {
   from {
     opacity: 0;
     transform: translateY(0.8rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes skillItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.45rem);
   }
 
   to {
