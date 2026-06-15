@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './style.css'
 
@@ -138,6 +138,8 @@ const skills = [
 ]
 
 function App() {
+  const [skillsView, setSkillsView] = useState('tags')
+
   useEffect(() => {
     const elements = document.querySelectorAll('.reveal')
 
@@ -208,8 +210,11 @@ function App() {
 
       <section className="statement reveal">
         <p>
-          From UX, UI and prototypes to websites, media design, automation, AI workflows and
-          implementation ready interfaces.
+          I started with HTML pages at school, took my first commercial web projects at university,
+          moved through street advertising and visual production, joined a mobile development
+          startup, grew inside international consulting, and later partnered with startups to shape
+          products from early ideas to usable systems. That path made me practical, curious and easy
+          to work with.
         </p>
       </section>
 
@@ -276,11 +281,30 @@ function App() {
       </section>
 
       <section className="section skillsSection" id="skills">
-        <div className="sectionHead reveal">
+        <div className="sectionHead skillsHead reveal">
           <h2>Skills</h2>
+
+          <div className="viewToggle" aria-label="Skills view">
+            <button
+              aria-pressed={skillsView === 'tags'}
+              className={skillsView === 'tags' ? 'is-active' : ''}
+              type="button"
+              onClick={() => setSkillsView('tags')}
+            >
+              Tags
+            </button>
+            <button
+              aria-pressed={skillsView === 'list'}
+              className={skillsView === 'list' ? 'is-active' : ''}
+              type="button"
+              onClick={() => setSkillsView('list')}
+            >
+              List
+            </button>
+          </div>
         </div>
 
-        <div className="skills">
+        <div className={`skills skills-${skillsView}`} key={skillsView}>
           {skills.map((skill, index) => (
             <span className="reveal" style={{ '--i': index % 12 }} key={skill}>
               {skill}

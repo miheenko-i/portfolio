@@ -273,6 +273,51 @@ h1 {
   font-weight: 400;
 }
 
+.skillsHead {
+  align-items: start;
+}
+
+.skillsHead h2 {
+  grid-column: 1 / span 6;
+}
+
+.viewToggle {
+  grid-column: 10 / -1;
+  justify-self: end;
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+}
+
+.viewToggle button {
+  min-width: 4.2rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.55rem 0.85rem 0.62rem;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: var(--s-1);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.viewToggle button:hover {
+  color: var(--text);
+}
+
+.viewToggle button.is-active {
+  background: var(--text);
+  color: var(--bg);
+}
+
 .workList,
 .resumeList {
   border-top: 1px solid var(--line-strong);
@@ -386,10 +431,22 @@ h1 {
 }
 
 .skills {
+  padding-top: 0.4rem;
+  animation: skillsSwitch 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.skills-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
-  padding-top: 0.4rem;
+}
+
+.skills-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: clamp(1.5rem, 3vw, 3rem);
+  row-gap: 0;
+  border-top: 1px solid var(--line-strong);
 }
 
 .skills span {
@@ -406,10 +463,41 @@ h1 {
   transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
+.skills-list span {
+  display: flex;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0.95rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  text-transform: none;
+}
+
 .skills span:hover {
   background: var(--text);
   border-color: var(--text);
   color: var(--bg);
+}
+
+.skills-list span:hover {
+  background: transparent;
+  border-color: var(--line-strong);
+  color: var(--accent);
+}
+
+@keyframes skillsSwitch {
+  from {
+    opacity: 0;
+    transform: translateY(0.8rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .contact {
@@ -526,6 +614,7 @@ h1 {
   .heroCopy,
   .heroAside,
   .sectionHead h2,
+  .viewToggle,
   .workRow > div:nth-child(2),
   .workMeta,
   .studioItem,
@@ -535,6 +624,14 @@ h1 {
   .contactGrid > p,
   .links {
     grid-column: auto;
+  }
+
+  .skillsHead {
+    row-gap: 1.25rem;
+  }
+
+  .viewToggle {
+    justify-self: start;
   }
 
   .nav {
@@ -565,6 +662,10 @@ h1 {
 
   .studioItem {
     min-height: 160px;
+  }
+
+  .skills-list {
+    grid-template-columns: 1fr;
   }
 }
 
