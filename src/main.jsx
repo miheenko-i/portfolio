@@ -184,6 +184,10 @@ function App() {
   return (
     <main className="page">
       <header className="hero reveal" id="top">
+        <figure className="heroPortrait" aria-hidden="true">
+          <img src={asset('/profile.png')} alt="" />
+        </figure>
+
         <div className="topbar">
           <a className="brand" href="#top" aria-label="Home">
             <span>Ilia Mikheenko</span>
@@ -205,18 +209,14 @@ function App() {
 
         <div className="heroInner">
           <div className="heroCopy">
-            <div className="heroStatus">
-              <p className="eyebrow">Product, Web, UI / UX Designer and AI powered builder</p>
-            </div>
+            <p className="eyebrow">Product, Web, UI / UX Designer and AI powered builder</p>
 
-            <h1>
-              Design and media expertise for digital products, AI workflows and B2B
-              communication.
-            </h1>
+            <h1>Ilia Mikheenko</h1>
 
             <p className="heroLead">
-              I help teams turn early ideas into shipped experiences: interfaces, websites,
-              prototypes, decks, visual systems and implementation ready design.
+              Design and media expertise for digital products, AI workflows and B2B
+              communication. I help teams turn early ideas into shipped interfaces, websites,
+              prototypes, decks and visual systems.
             </p>
 
             <div className="heroActions">
@@ -225,16 +225,30 @@ function App() {
             </div>
           </div>
 
-          <aside className="heroAside">
-            <figure className="portrait">
-              <img src={asset('/profile.png')} alt="Ilya Mikheenko portrait" />
-            </figure>
-
-            <div className="heroAsideText">
-              <span>Based in product, media and AI workflows</span>
-              <p>Design systems, interface logic, launch assets and clear communication.</p>
-            </div>
+          <aside className="heroFacts" aria-label="Profile details">
+            <dl>
+              <div>
+                <dt>Location</dt>
+                <dd>Batumi, Georgia</dd>
+              </div>
+              <div>
+                <dt>Languages</dt>
+                <dd>English / Russian</dd>
+              </div>
+              <div>
+                <dt>LinkedIn</dt>
+                <dd>
+                  <a href="https://www.linkedin.com/in/miheenko/" target="_blank" rel="noreferrer">
+                    miheenko
+                  </a>
+                </dd>
+              </div>
+            </dl>
           </aside>
+
+          <figure className="heroMedia" aria-label="Ilya Mikheenko portrait">
+            <img src={asset('/profile.png')} alt="Ilya Mikheenko portrait" />
+          </figure>
         </div>
       </header>
 
