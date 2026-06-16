@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './style.css'
 
@@ -149,6 +149,9 @@ const skillGroups = [
 ]
 
 function App() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   useEffect(() => {
     const elements = document.querySelectorAll('.reveal')
 
@@ -172,45 +175,87 @@ function App() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    const updateScrollState = () => {
+      setIsScrolled(window.scrollY > 8)
+    }
+
+    updateScrollState()
+    window.addEventListener('scroll', updateScrollState, { passive: true })
+
+    return () => window.removeEventListener('scroll', updateScrollState)
+  }, [])
+
   return (
-    <main className="page">
-      <header className="hero reveal" id="top">
-        <div className="topbar">
-          <a className="brand" href="#top" aria-label="Home">
-            <span>Ilia Mikheenko</span>
-            <span>Design + AI build</span>
+    <main className={`page ${isScrolled ? 'is-scrolled' : ''} ${isMenuOpen ? 'is-menu-open' : ''}`}>
+      <div className="topbar">
+        <a className="brand" href="#top" aria-label="Home">
+          <span>Ilia Mikheenko</span>
+        </a>
+
+        <nav className="nav" aria-label="Main navigation">
+          <a href="#work" onClick={() => setIsMenuOpen(false)}>
+            Work
           </a>
+          <a href="#studio" onClick={() => setIsMenuOpen(false)}>
+            Studio
+          </a>
+          <a href="#experience" onClick={() => setIsMenuOpen(false)}>
+            Experience
+          </a>
+          <a href="#skills" onClick={() => setIsMenuOpen(false)}>
+            Skills
+          </a>
+          <a href="#contact" onClick={() => setIsMenuOpen(false)}>
+            Contact
+          </a>
+        </nav>
 
-          <nav className="nav" aria-label="Main navigation">
-            <a href="#work">Work</a>
-            <a href="#studio">Studio</a>
-            <a href="#resume">Resume</a>
-            <a href="#skills">Skills</a>
-            <a href="#contact">Contact</a>
-          </nav>
-
-          <a className="mailLink" href="mailto:mobile.mih@gmail.com">
-            mobile.mih@gmail.com
+        <div className="navTools" aria-label="Contact details">
+          <a
+            className="locationLink"
+            href="https://www.google.com/maps/search/?api=1&query=Batumi%2C%20Georgia"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Batumi, Georgia
+          </a>
+          <a
+            className="iconLink"
+            href="https://www.linkedin.com/in/miheenko/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn"
+          >
+            in
+          </a>
+          <a className="iconLink" href="mailto:mobile.mih@gmail.com" aria-label="Email">
+            @
           </a>
         </div>
+
+        <button
+          className="menuButton"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded={isMenuOpen}
+          onClick={() => setIsMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+        </button>
+      </div>
+
+      <header className="hero is-visible" id="top" style={{ '--hero-bg': `url(${asset('/hero-background.jpg')})` }}>
 
         <div className="heroInner">
           <h1>Ilia Mikheenko</h1>
 
           <div className="heroCopy">
-            <p className="eyebrow">Product, Web, UI / UX Designer and AI powered builder</p>
-
-            <ul className="heroServices" aria-label="Core expertise">
-              <li>Product Design</li>
-              <li>Web Systems</li>
-              <li>AI Workflows</li>
-              <li>Media Design</li>
-            </ul>
-
             <p className="heroLead">
-              Design and media expertise for digital products, AI workflows and B2B
-              communication. I help teams turn early ideas into shipped interfaces, websites,
-              prototypes, decks and visual systems.
+              I design product interfaces, websites, AI workflow materials and B2B communication
+              systems that help teams explain value clearly, move faster and turn early ideas into
+              usable digital products.
             </p>
 
             <div className="heroActions">
@@ -218,61 +263,8 @@ function App() {
               <a href="mailto:mobile.mih@gmail.com">Start a project</a>
             </div>
           </div>
-
-          <aside className="heroFacts" aria-label="Profile details">
-            <dl>
-              <div>
-                <dt>Location</dt>
-                <dd>Batumi, Georgia</dd>
-              </div>
-              <div>
-                <dt>Languages</dt>
-                <dd>English / Russian</dd>
-              </div>
-              <div>
-                <dt>LinkedIn</dt>
-                <dd>
-                  <a href="https://www.linkedin.com/in/miheenko/" target="_blank" rel="noreferrer">
-                    miheenko
-                  </a>
-                </dd>
-              </div>
-            </dl>
-          </aside>
-
-          <figure className="heroMedia" aria-label="Ilya Mikheenko portrait">
-            <img src={asset('/profile.png')} alt="Ilya Mikheenko portrait" />
-          </figure>
         </div>
       </header>
-
-      <section className="statement reveal">
-        <p className="storyText">
-          I started with{' '}
-          <button className="storyHotspot" type="button">
-            HTML pages after school
-            <span className="inlinePreview preview-html" aria-hidden="true" />
-          </button>
-          , and at university took my first paid design jobs: outdoor ads, print materials and
-          business cards.{' '}
-          <button className="storyHotspot" type="button">
-            Print and street advertising
-            <span className="inlinePreview preview-print" aria-hidden="true" />
-          </button>{' '}
-          taught me craft, production and real-world deadlines; a{' '}
-          <button className="storyHotspot" type="button">
-            mobile startup
-            <span className="inlinePreview preview-mobile" aria-hidden="true" />
-          </button>{' '}
-          brought me into product work; international consulting made me sharper and calmer in
-          complex teams; and later startup collaborations made me better at helping people turn{' '}
-          <button className="storyHotspot" type="button">
-            early ideas into useful systems
-            <span className="inlinePreview preview-product" aria-hidden="true" />
-          </button>
-          .
-        </p>
-      </section>
 
       <section className="section workSection" id="work">
         <div className="sectionHead reveal">
@@ -314,9 +306,14 @@ function App() {
         </div>
       </section>
 
-      <section className="section resumeSection" id="resume">
+      <section className="section resumeSection" id="experience">
         <div className="sectionHead reveal">
-          <h2>Resume</h2>
+          <h2>Experience</h2>
+          <p className="sectionIntro">
+            I started with HTML after school and learned design through real work: print, outdoor
+            ads, mobile products, consulting and startups. That mix made me practical, calm with
+            complexity and focused on turning rough ideas into things teams can actually use.
+          </p>
         </div>
 
         <div className="resumeList">
