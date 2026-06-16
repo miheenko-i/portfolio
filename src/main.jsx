@@ -148,6 +148,23 @@ const skillGroups = [
   },
 ]
 
+function SplitText({ text }) {
+  return (
+    <span className="splitText" aria-label={text}>
+      {Array.from(text).map((char, index) => (
+        <span
+          className={`splitChar${char === ' ' ? ' splitSpace' : ''}`}
+          style={{ '--char': index }}
+          aria-hidden="true"
+          key={`${char}${index}`}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </span>
+  )
+}
+
 function App() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -249,7 +266,9 @@ function App() {
       <header className="hero is-visible" id="top" style={{ '--hero-bg': `url(${asset('/hero-background.jpg')})` }}>
 
         <div className="heroInner">
-          <h1>Ilia Mikheenko</h1>
+          <h1>
+            <SplitText text="Ilia Mikheenko" />
+          </h1>
 
           <div className="heroCopy">
             <p className="heroLead">
@@ -268,7 +287,9 @@ function App() {
 
       <section className="section workSection" id="work">
         <div className="sectionHead reveal">
-          <h2>Selected work</h2>
+          <h2>
+            <SplitText text="Selected work" />
+          </h2>
         </div>
 
         <div className="workList">
@@ -293,7 +314,9 @@ function App() {
 
       <section className="section studioSection" id="studio">
         <div className="sectionHead reveal">
-          <h2>Studio range</h2>
+          <h2>
+            <SplitText text="Studio range" />
+          </h2>
         </div>
 
         <div className="studioGrid">
@@ -308,7 +331,9 @@ function App() {
 
       <section className="section resumeSection" id="experience">
         <div className="sectionHead reveal">
-          <h2>Experience</h2>
+          <h2>
+            <SplitText text="Experience" />
+          </h2>
           <p className="sectionIntro">
             I started with HTML after school and learned design through real work: print, outdoor
             ads, mobile products, consulting and startups. That mix made me practical, calm with
@@ -340,7 +365,9 @@ function App() {
 
       <section className="section skillsSection" id="skills">
         <div className="sectionHead skillsHead reveal">
-          <h2>Skills</h2>
+          <h2>
+            <SplitText text="Skills" />
+          </h2>
         </div>
 
         <div className="skills skills-list">
@@ -361,7 +388,9 @@ function App() {
 
       <section className="contact reveal" id="contact">
         <div className="sectionHead">
-          <h2>Contact</h2>
+          <h2>
+            <SplitText text="Contact" />
+          </h2>
         </div>
 
         <div className="contactGrid">
