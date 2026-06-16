@@ -6,6 +6,8 @@
   --line: rgba(5, 5, 5, 0.14);
   --line-strong: rgba(5, 5, 5, 0.9);
   --accent: #ff3b30;
+  --font-heading: 'Bricolage Grotesque', 'Google Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  --font-body: 'Google Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 
   --s-1: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
   --s0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
@@ -14,7 +16,7 @@
   --s3: clamp(1.95rem, 1.48rem + 1.9vw, 3.05rem);
   --s4: clamp(3rem, 2.1rem + 3.15vw, 5.25rem);
 
-  --page: 2rem;
+  --page: clamp(1.5rem, 3.4vw, 5rem);
   --section: clamp(7rem, 11vw, 11rem);
 }
 
@@ -30,7 +32,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Google Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   font-size: var(--s0);
   line-height: 1.45;
   text-rendering: geometricPrecision;
@@ -50,6 +52,17 @@ figure {
   margin: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+.heroServices,
+.storyText,
+.contactGrid > p,
+.links a {
+  font-family: var(--font-heading);
+}
+
 .page {
   width: 100%;
   min-height: 100vh;
@@ -66,7 +79,7 @@ figure {
 .statement,
 .section,
 .contact {
-  padding-inline: clamp(0.75rem, 1.2vw, 1.4rem);
+  padding-inline: var(--page);
 }
 
 .topbar {
@@ -86,7 +99,7 @@ figure {
 .company,
 .date,
 .studioItem span {
-  font-family: 'Google Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   font-size: var(--s-1);
   line-height: 1.22;
   letter-spacing: 0.03em;
@@ -108,10 +121,13 @@ figure {
 .nav a,
 .eyebrow,
 .workMeta,
-.company,
 .date,
 .studioItem span {
   color: var(--muted);
+}
+
+.company {
+  color: var(--text);
 }
 
 .nav {
@@ -179,7 +195,7 @@ figure {
 .heroInner {
   width: 100%;
   margin-inline: auto;
-  padding-inline: clamp(0.75rem, 1.2vw, 1.4rem);
+  padding-inline: var(--page);
 }
 
 .hero::before,
@@ -260,7 +276,7 @@ h1 {
   font-size: var(--s4);
   line-height: 0.98;
   letter-spacing: -0.045em;
-  font-weight: 400;
+  font-weight: 700;
   text-wrap: balance;
 }
 
@@ -723,7 +739,7 @@ h1 {
   font-size: clamp(4.8rem, 13.2vw, 16rem);
   line-height: 0.9;
   letter-spacing: -0.055em;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .skillsHead h2 {
@@ -779,16 +795,33 @@ h1 {
   text-transform: uppercase;
 }
 
-.workRow h3,
-.resumeItem h3 {
+.workRow h3 {
   font-size: clamp(2.4rem, 5vw, 6.4rem);
   line-height: 0.98;
   letter-spacing: -0.04em;
   font-weight: 600;
 }
 
+.resumeItem h3 {
+  margin-bottom: 0;
+  font-family: var(--font-body);
+  font-size: clamp(1.25rem, 1.8vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.resumeMeta .company {
+  font-size: clamp(1.25rem, 1.8vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+  text-transform: none;
+}
+
 .workRow p,
-.resumeItem > p:last-child,
+.resumeText,
 .contactGrid > p {
   max-width: 720px;
   color: var(--muted);
@@ -842,21 +875,25 @@ h1 {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: clamp(1rem, 2vw, 2.5rem);
-  min-height: clamp(13rem, 23vw, 26rem);
-  padding-block: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+  min-height: auto;
+  padding-block: clamp(2rem, 3.6vw, 3.6rem);
   border-bottom: 1px solid var(--line);
 }
 
-.resumeItem > .date {
-  grid-column: span 2;
+.resumeMeta {
+  grid-column: 1 / span 3;
+  display: grid;
+  gap: 0.9rem;
 }
 
-.resumeItem > div {
-  grid-column: span 4;
+.resumeTitle {
+  grid-column: 4 / span 4;
+  padding-right: clamp(1rem, 3vw, 3rem);
 }
 
-.resumeItem > p:last-child {
-  grid-column: span 6;
+.resumeText {
+  grid-column: 8 / -1;
 }
 
 .resumeItem:last-child {
@@ -883,7 +920,7 @@ h1 {
   border-radius: 999px;
   background: var(--bg);
   color: var(--muted);
-  font-family: 'Google Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   font-size: var(--s-1);
   line-height: 1;
   letter-spacing: 0;
@@ -1091,9 +1128,9 @@ h1 {
   .workInfo,
   .workMeta,
   .studioItem,
-  .resumeItem > .date,
-  .resumeItem > div,
-  .resumeItem > p:last-child,
+  .resumeMeta,
+  .resumeTitle,
+  .resumeText,
   .contactGrid > p,
   .links {
     grid-column: auto;
@@ -1237,10 +1274,15 @@ h1 {
     padding-block: 2.4rem;
   }
 
-  .workRow h3,
-  .resumeItem h3 {
-    font-size: clamp(2.2rem, 12vw, 4rem);
+  .workRow h3 {
+    font-size: clamp(2rem, 10vw, 3.5rem);
     line-height: 1;
+  }
+
+  .resumeItem h3,
+  .resumeMeta .company {
+    font-size: clamp(1.25rem, 5vw, 1.7rem);
+    line-height: 1.1;
   }
 
   .studioGrid {

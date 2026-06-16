@@ -326,14 +326,16 @@ function App() {
               key={`${item.company}${item.period}`}
               style={{ '--i': index }}
             >
-              <p className="date">{item.period}</p>
-
-              <div>
-                <h3>{item.role}</h3>
+              <div className="resumeMeta">
+                <p className="date">{item.period}</p>
                 <p className="company">{item.company}</p>
               </div>
 
-              <p>{item.text}</p>
+              <div className="resumeTitle">
+                <h3>{item.role}</h3>
+              </div>
+
+              <p className="resumeText">{item.text}</p>
             </article>
           ))}
         </div>
