@@ -370,7 +370,7 @@ h1 {
   text-transform: none;
   text-wrap: nowrap;
   white-space: nowrap;
-  color: #ffffff;
+  color: var(--text);
 }
 
 .heroLead {
@@ -694,7 +694,7 @@ h1 {
   display: inline-block;
   opacity: 0;
   transform: translateY(0.55em);
-  filter: blur(0.22em);
+  filter: blur(0.08em);
 }
 
 .hero.is-visible h1 .splitChar,
