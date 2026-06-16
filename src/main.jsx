@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './style.css'
 
@@ -148,16 +148,7 @@ const skillGroups = [
   },
 ]
 
-const skills = skillGroups.flatMap((group) =>
-  group.items.map((skill) => ({
-    group: group.title,
-    name: skill,
-  })),
-)
-
 function App() {
-  const [skillsView, setSkillsView] = useState('tags')
-
   useEffect(() => {
     const elements = document.querySelectorAll('.reveal')
 
@@ -351,51 +342,22 @@ function App() {
       <section className="section skillsSection" id="skills">
         <div className="sectionHead skillsHead reveal">
           <h2>Skills</h2>
-
-          <div className="viewToggle" aria-label="Skills view">
-            <button
-              aria-pressed={skillsView === 'tags'}
-              className={skillsView === 'tags' ? 'is-active' : ''}
-              type="button"
-              onClick={() => setSkillsView('tags')}
-            >
-              Tags
-            </button>
-            <button
-              aria-pressed={skillsView === 'list'}
-              className={skillsView === 'list' ? 'is-active' : ''}
-              type="button"
-              onClick={() => setSkillsView('list')}
-            >
-              List
-            </button>
-          </div>
         </div>
 
-        {skillsView === 'tags' ? (
-          <div className="skills skills-tags" key="tags">
-            {skills.map((skill, index) => (
-              <span style={{ '--i': index % 12 }} key={skill.name}>
-                {skill.name}
-              </span>
-            ))}
-          </div>
-        ) : (
-          <div className="skills skills-list" key="list">
-            {skillGroups.map((group, groupIndex) => (
-              <section className="skillGroup" key={group.title} style={{ '--i': groupIndex }}>
-                <h3>{group.title}</h3>
-                <div>
-                  {group.items.map((skill, index) => (
-                    <span style={{ '--i': index % 12 }} key={skill}>
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
-        )}
+        <div className="skills skills-list">
+          {skillGroups.map((group, groupIndex) => (
+            <section className="skillGroup" key={group.title} style={{ '--i': groupIndex }}>
+              <h3>{group.title}</h3>
+              <div>
+                {group.items.map((skill, index) => (
+                  <span style={{ '--i': index % 12 }} key={skill}>
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </section>
 
       <section className="contact reveal" id="contact">

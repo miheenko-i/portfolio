@@ -269,8 +269,8 @@ h1 {
   grid-row: 1;
   max-width: none;
   font-size: clamp(5.2rem, 14vw, 18rem);
-  line-height: 0.72;
-  letter-spacing: -0.1em;
+  line-height: 0.86;
+  letter-spacing: -0.055em;
   text-transform: none;
   text-wrap: nowrap;
   white-space: nowrap;
@@ -301,8 +301,9 @@ h1 {
   list-style: none;
   color: var(--text);
   font-size: clamp(2.35rem, 4.2vw, 5rem);
-  line-height: 0.84;
-  letter-spacing: -0.07em;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 500;
 }
 
 .heroActions {
@@ -516,8 +517,8 @@ h1 {
   grid-column: 4 / span 6;
   max-width: none;
   font-size: clamp(3rem, 4.9vw, 6.3rem);
-  line-height: 0.96;
-  letter-spacing: -0.06em;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
   font-weight: 400;
   text-wrap: pretty;
 }
@@ -720,54 +721,13 @@ h1 {
 .sectionHead h2 {
   grid-column: 1 / -1;
   font-size: clamp(4.8rem, 13.2vw, 16rem);
-  line-height: 0.76;
-  letter-spacing: -0.095em;
-  font-weight: 400;
-}
-
-.skillsHead {
-  align-items: start;
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+  font-weight: 600;
 }
 
 .skillsHead h2 {
-  grid-column: 1 / span 9;
-}
-
-.viewToggle {
-  grid-column: 10 / -1;
-  justify-self: end;
-  display: inline-flex;
-  gap: 0.25rem;
-  padding: 0.25rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--bg);
-}
-
-.viewToggle button {
-  min-width: 4.2rem;
-  border: 0;
-  border-radius: 999px;
-  padding: 0.55rem 0.85rem 0.62rem;
-  background: transparent;
-  color: var(--muted);
-  font: inherit;
-  font-size: var(--s-1);
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    background-color 180ms ease,
-    color 180ms ease,
-    transform 180ms ease;
-}
-
-.viewToggle button:hover {
-  color: var(--text);
-}
-
-.viewToggle button.is-active {
-  background: var(--text);
-  color: var(--bg);
+  grid-column: 1 / -1;
 }
 
 .workList,
@@ -822,9 +782,9 @@ h1 {
 .workRow h3,
 .resumeItem h3 {
   font-size: clamp(2.4rem, 5vw, 6.4rem);
-  line-height: 0.86;
-  letter-spacing: -0.07em;
-  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 600;
 }
 
 .workRow p,
@@ -873,9 +833,9 @@ h1 {
 .studioItem h4 {
   max-width: 24rem;
   font-size: clamp(2.1rem, 3.2vw, 4.2rem);
-  line-height: 0.92;
-  letter-spacing: -0.06em;
-  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-weight: 600;
 }
 
 .resumeItem {
@@ -906,12 +866,6 @@ h1 {
 .skills {
   padding-top: 0.4rem;
   animation: skillsSwitch 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.skills-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.85rem;
 }
 
 .skills-list {
@@ -1028,8 +982,8 @@ h1 {
   grid-column: 1 / span 7;
   max-width: none;
   font-size: clamp(3rem, 5vw, 7rem);
-  line-height: 0.92;
-  letter-spacing: -0.07em;
+  line-height: 1;
+  letter-spacing: -0.04em;
   color: var(--text);
 }
 
@@ -1133,7 +1087,6 @@ h1 {
   .heroFacts,
   .heroMedia,
   .sectionHead h2,
-  .viewToggle,
   .workPreview,
   .workInfo,
   .workMeta,
@@ -1144,14 +1097,6 @@ h1 {
   .contactGrid > p,
   .links {
     grid-column: auto;
-  }
-
-  .skillsHead {
-    row-gap: 1.25rem;
-  }
-
-  .viewToggle {
-    justify-self: start;
   }
 
   .nav {
@@ -1182,8 +1127,8 @@ h1 {
   .hero h1 {
     max-width: 100%;
     font-size: clamp(4.4rem, 20vw, 6.8rem);
-    line-height: 0.78;
-    letter-spacing: -0.07em;
+    line-height: 0.9;
+    letter-spacing: -0.045em;
     white-space: normal;
   }
 
@@ -1212,6 +1157,7 @@ h1 {
 
   .heroServices {
     font-size: clamp(2rem, 10vw, 3.2rem);
+    line-height: 1;
   }
 
   .heroMedia {
@@ -1249,7 +1195,7 @@ h1 {
   .storyText {
     grid-column: auto;
     font-size: clamp(2.2rem, 12vw, 4rem);
-    line-height: 1;
+    line-height: 1.08;
   }
 
   .inlinePreview {
@@ -1282,7 +1228,7 @@ h1 {
 
   .sectionHead h2 {
     font-size: clamp(4rem, 20vw, 7rem);
-    line-height: 0.82;
+    line-height: 0.92;
   }
 
   .workRow {
@@ -1294,7 +1240,7 @@ h1 {
   .workRow h3,
   .resumeItem h3 {
     font-size: clamp(2.2rem, 12vw, 4rem);
-    line-height: 0.9;
+    line-height: 1;
   }
 
   .studioGrid {
@@ -1316,7 +1262,7 @@ h1 {
 
   .contactGrid > p {
     font-size: clamp(2.4rem, 13vw, 4.4rem);
-    line-height: 0.96;
+    line-height: 1.02;
   }
 
   .skills-list {
