@@ -184,10 +184,6 @@ function App() {
   return (
     <main className="page">
       <header className="hero reveal" id="top">
-        <figure className="heroPortrait" aria-hidden="true">
-          <img src={asset('/profile.png')} alt="" />
-        </figure>
-
         <div className="topbar">
           <a className="brand" href="#top" aria-label="Home">
             <span>Ilia Mikheenko</span>
@@ -208,10 +204,17 @@ function App() {
         </div>
 
         <div className="heroInner">
+          <h1>Ilia Mikheenko</h1>
+
           <div className="heroCopy">
             <p className="eyebrow">Product, Web, UI / UX Designer and AI powered builder</p>
 
-            <h1>Ilia Mikheenko</h1>
+            <ul className="heroServices" aria-label="Core expertise">
+              <li>Product Design</li>
+              <li>Web Systems</li>
+              <li>AI Workflows</li>
+              <li>Media Design</li>
+            </ul>
 
             <p className="heroLead">
               Design and media expertise for digital products, AI workflows and B2B

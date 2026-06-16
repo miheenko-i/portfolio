@@ -60,8 +60,13 @@ figure {
 .statement,
 .section,
 .contact {
-  width: min(100% - var(--page) * 2, 1360px);
-  margin-inline: auto;
+  width: 100%;
+}
+
+.statement,
+.section,
+.contact {
+  padding-inline: clamp(0.75rem, 1.2vw, 1.4rem);
 }
 
 .topbar {
@@ -159,21 +164,22 @@ figure {
 
 .hero {
   position: relative;
-  min-height: min(760px, calc(100svh - 1rem));
+  min-height: 100svh;
   width: 100%;
   display: grid;
   grid-template-rows: auto 1fr;
   margin-top: 0;
   overflow: hidden;
   isolation: isolate;
-  background: #0d0d0b;
-  color: #f4f2ea;
+  background: #f7f7f4;
+  color: var(--text);
 }
 
 .hero .topbar,
 .heroInner {
-  width: min(100% - var(--page) * 2, 1360px);
+  width: 100%;
   margin-inline: auto;
+  padding-inline: clamp(0.75rem, 1.2vw, 1.4rem);
 }
 
 .hero::before,
@@ -193,18 +199,13 @@ figure {
   display: none;
 }
 
-.heroPortrait {
-  display: none;
-}
-
-.heroPortrait img,
 .heroMedia img {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
   object-position: 52% 28%;
-  filter: grayscale(1) contrast(1.08) brightness(0.86);
+  filter: grayscale(1) contrast(1.05);
 }
 
 .hero .topbar {
@@ -215,18 +216,18 @@ figure {
 .hero .brand span:first-child,
 .hero .nav a:hover,
 .hero .mailLink:hover {
-  color: #f4f2ea;
+  color: var(--text);
 }
 
 .hero .brand span:last-child,
 .hero .mailLink,
 .hero .nav a,
 .hero .eyebrow {
-  color: rgba(244, 242, 234, 0.54);
+  color: var(--muted);
 }
 
 .hero .nav {
-  border-left-color: rgba(244, 242, 234, 0.18);
+  border-left-color: transparent;
 }
 
 .heroInner {
@@ -235,19 +236,22 @@ figure {
   min-height: 0;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(1.5rem, 3vw, 3rem);
-  row-gap: clamp(1.5rem, 2.4vw, 2.5rem);
-  align-items: center;
-  padding-block: clamp(4rem, 7vw, 6.5rem) clamp(3rem, 5vw, 4.5rem);
+  grid-template-rows: auto 1fr auto;
+  column-gap: clamp(1rem, 2vw, 2.5rem);
+  row-gap: clamp(1rem, 2vw, 2.25rem);
+  align-items: end;
+  padding-block: clamp(0.85rem, 1.7vw, 1.8rem) clamp(0.85rem, 1.7vw, 1.8rem);
 }
 
 .heroCopy {
-  grid-column: 1 / span 6;
+  grid-column: 1 / span 5;
+  grid-row: 3;
+  align-self: end;
   min-width: 0;
   width: 100%;
   display: grid;
-  gap: clamp(1.2rem, 2vw, 1.9rem);
-  padding-right: clamp(1rem, 5vw, 5rem);
+  gap: clamp(1rem, 1.8vw, 1.6rem);
+  padding-right: clamp(1rem, 4vw, 4rem);
 }
 
 h1 {
@@ -261,12 +265,15 @@ h1 {
 }
 
 .hero h1 {
-  max-width: 760px;
-  font-size: clamp(4.2rem, 8vw, 9.5rem);
-  line-height: 0.82;
-  letter-spacing: -0.075em;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  max-width: none;
+  font-size: clamp(5.2rem, 14vw, 18rem);
+  line-height: 0.72;
+  letter-spacing: -0.1em;
   text-transform: none;
-  text-wrap: balance;
+  text-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .heroLead {
@@ -279,11 +286,23 @@ h1 {
 }
 
 .hero .heroLead {
-  max-width: 540px;
-  color: rgba(244, 242, 234, 0.58);
-  font-size: clamp(1.02rem, 1.1vw, 1.22rem);
-  line-height: 1.42;
+  max-width: 420px;
+  color: var(--muted);
+  font-size: var(--s0);
+  line-height: 1.45;
   letter-spacing: 0;
+}
+
+.heroServices {
+  display: grid;
+  gap: 0.08em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text);
+  font-size: clamp(2.35rem, 4.2vw, 5rem);
+  line-height: 0.84;
+  letter-spacing: -0.07em;
 }
 
 .heroActions {
@@ -310,8 +329,8 @@ h1 {
 }
 
 .hero .heroActions a {
-  border-color: rgba(244, 242, 234, 0.22);
-  color: #f4f2ea;
+  border-color: var(--line);
+  color: var(--text);
   background: transparent;
 }
 
@@ -322,9 +341,9 @@ h1 {
 }
 
 .hero .heroActions a:first-child {
-  background: #f4f2ea;
-  border-color: #f4f2ea;
-  color: #0d0d0b;
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
 }
 
 .heroActions a:hover {
@@ -337,13 +356,14 @@ h1 {
 }
 
 .hero .heroActions a:not(:first-child):hover {
-  border-color: rgba(244, 242, 234, 0.7);
-  background: rgba(244, 242, 234, 0.08);
+  border-color: var(--text);
+  background: #ffffff;
 }
 
 .heroFacts {
-  grid-column: 1 / span 6;
-  align-self: start;
+  grid-column: 5 / span 2;
+  grid-row: 3;
+  align-self: end;
   justify-self: stretch;
   background: transparent;
   border-top: 0;
@@ -352,9 +372,8 @@ h1 {
 }
 
 .heroFacts dl {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.1rem 1.5rem;
+  display: grid;
+  gap: 0.8rem;
   margin: 0;
 }
 
@@ -375,7 +394,7 @@ h1 {
 }
 
 .heroFacts dt {
-  color: rgba(244, 242, 234, 0.42);
+  color: var(--muted);
   font-size: var(--s-1);
   line-height: 1.2;
   letter-spacing: 0.03em;
@@ -383,7 +402,7 @@ h1 {
 }
 
 .heroFacts dd {
-  color: rgba(244, 242, 234, 0.84);
+  color: var(--text);
   font-size: var(--s0);
   line-height: 1.25;
 }
@@ -395,14 +414,14 @@ h1 {
 }
 
 .heroMedia {
-  grid-column: 8 / -1;
-  grid-row: 1 / span 2;
-  align-self: center;
+  grid-column: 7 / -1;
+  grid-row: 3;
+  align-self: end;
   justify-self: end;
-  width: min(100%, 520px);
-  aspect-ratio: 1 / 0.78;
+  width: min(100%, 49vw);
+  aspect-ratio: 16 / 8.2;
   overflow: hidden;
-  background: #171714;
+  background: #ececea;
 }
 
 .hero .brand,
@@ -410,6 +429,7 @@ h1 {
 .hero .mailLink,
 .hero .eyebrow,
 .hero h1,
+.heroServices,
 .heroLead,
 .heroActions,
 .heroFacts,
@@ -423,6 +443,7 @@ h1 {
 .hero.is-visible .mailLink,
 .hero.is-visible .eyebrow,
 .hero.is-visible h1,
+.hero.is-visible .heroServices,
 .hero.is-visible .heroLead,
 .hero.is-visible .heroActions,
 .hero.is-visible .heroFacts,
@@ -450,12 +471,16 @@ h1 {
   animation-delay: 280ms;
 }
 
+.hero.is-visible .heroServices {
+  animation-delay: 340ms;
+}
+
 .hero.is-visible .heroLead {
-  animation-delay: 360ms;
+  animation-delay: 390ms;
 }
 
 .hero.is-visible .heroActions {
-  animation-delay: 430ms;
+  animation-delay: 450ms;
 }
 
 .hero.is-visible .heroFacts {
@@ -479,14 +504,20 @@ h1 {
 }
 
 .statement {
-  padding-block: var(--section);
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1rem, 2vw, 2.5rem);
+  align-items: center;
+  padding-block: clamp(5rem, 10vw, 9rem);
 }
 
 .storyText {
-  max-width: 1100px;
-  font-size: var(--s3);
-  line-height: 1.16;
-  letter-spacing: -0.035em;
+  grid-column: 4 / span 6;
+  max-width: none;
+  font-size: clamp(3rem, 4.9vw, 6.3rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
   font-weight: 400;
   text-wrap: pretty;
 }
@@ -545,9 +576,9 @@ h1 {
 }
 
 .workPreview {
-  grid-column: 10 / -1;
+  grid-column: 8 / -1;
   justify-self: end;
-  width: min(100%, 260px);
+  width: min(100%, 34vw);
   transform-origin: 82% 50%;
 }
 
@@ -567,7 +598,7 @@ h1 {
 
 .workPreview:hover,
 .workPreview:focus-visible {
-  transform: scale(1.72);
+  transform: scale(1.08);
 }
 
 .workPreview span {
@@ -674,22 +705,23 @@ h1 {
 
 .section,
 .contact {
-  padding-block: var(--section);
+  min-height: 100svh;
+  padding-block: clamp(5rem, 8vw, 8rem);
 }
 
 .sectionHead {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(1.5rem, 3vw, 3rem);
+  column-gap: clamp(1rem, 2vw, 2.5rem);
   align-items: start;
-  margin-bottom: clamp(3rem, 6vw, 5.5rem);
+  margin-bottom: clamp(3rem, 7vw, 7rem);
 }
 
 .sectionHead h2 {
-  grid-column: 1 / span 7;
-  font-size: var(--s3);
-  line-height: 1.08;
-  letter-spacing: -0.035em;
+  grid-column: 1 / -1;
+  font-size: clamp(4.8rem, 13.2vw, 16rem);
+  line-height: 0.76;
+  letter-spacing: -0.095em;
   font-weight: 400;
 }
 
@@ -698,7 +730,7 @@ h1 {
 }
 
 .skillsHead h2 {
-  grid-column: 1 / span 6;
+  grid-column: 1 / span 9;
 }
 
 .viewToggle {
@@ -746,9 +778,10 @@ h1 {
 .workRow {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(1.5rem, 3vw, 3rem);
+  column-gap: clamp(1rem, 2vw, 2.5rem);
   align-items: center;
-  padding-block: clamp(2rem, 4vw, 3.25rem);
+  min-height: clamp(18rem, 31vw, 35rem);
+  padding-block: clamp(2rem, 4vw, 4rem);
   border-bottom: 1px solid var(--line);
   transition: background-color 220ms ease, padding-inline 220ms ease;
 }
@@ -758,12 +791,12 @@ h1 {
 }
 
 .workInfo {
-  grid-column: 1 / span 6;
-  padding-right: clamp(1rem, 4vw, 4rem);
+  grid-column: 1 / span 5;
+  padding-right: clamp(1rem, 3vw, 3rem);
 }
 
 .workMeta {
-  grid-column: 7 / span 2;
+  grid-column: 6 / span 2;
   display: grid;
   align-content: start;
   justify-items: start;
@@ -788,9 +821,9 @@ h1 {
 
 .workRow h3,
 .resumeItem h3 {
-  font-size: var(--s2);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
+  font-size: clamp(2.4rem, 5vw, 6.4rem);
+  line-height: 0.86;
+  letter-spacing: -0.07em;
   font-weight: 400;
 }
 
@@ -804,6 +837,10 @@ h1 {
   letter-spacing: 0;
 }
 
+.workRow p {
+  max-width: 520px;
+}
+
 .studioGrid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -814,7 +851,7 @@ h1 {
 
 .studioItem {
   grid-column: span 4;
-  min-height: 260px;
+  min-height: clamp(18rem, 34vw, 36rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -834,27 +871,28 @@ h1 {
 }
 
 .studioItem h4 {
-  max-width: 18rem;
-  font-size: var(--s2);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
+  max-width: 24rem;
+  font-size: clamp(2.1rem, 3.2vw, 4.2rem);
+  line-height: 0.92;
+  letter-spacing: -0.06em;
   font-weight: 400;
 }
 
 .resumeItem {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(1.5rem, 3vw, 3rem);
-  padding-block: clamp(2rem, 4vw, 3rem);
+  column-gap: clamp(1rem, 2vw, 2.5rem);
+  min-height: clamp(13rem, 23vw, 26rem);
+  padding-block: clamp(2rem, 4vw, 4rem);
   border-bottom: 1px solid var(--line);
 }
 
 .resumeItem > .date {
-  grid-column: span 3;
+  grid-column: span 2;
 }
 
 .resumeItem > div {
-  grid-column: span 3;
+  grid-column: span 4;
 }
 
 .resumeItem > p:last-child {
@@ -873,20 +911,20 @@ h1 {
 .skills-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.7rem;
+  gap: 0.85rem;
 }
 
 .skills-list {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: clamp(1.5rem, 3vw, 3rem);
+  column-gap: clamp(1rem, 2vw, 2.5rem);
   row-gap: clamp(2rem, 4vw, 3rem);
   border-top: 1px solid var(--line-strong);
   padding-top: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .skills span {
-  padding: 0.58rem 0.78rem 0.64rem;
+  padding: 0.7rem 0.95rem 0.76rem;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--bg);
@@ -972,22 +1010,27 @@ h1 {
 }
 
 .contact {
-  min-height: min(76vh, 760px);
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: clamp(5rem, 9vw, 8rem);
+  padding-bottom: clamp(4rem, 8vw, 7rem);
 }
 
 .contactGrid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(1.5rem, 3vw, 3rem);
+  column-gap: clamp(1rem, 2vw, 2.5rem);
   align-items: end;
 }
 
 .contactGrid > p {
-  grid-column: 4 / span 5;
+  grid-column: 1 / span 7;
+  max-width: none;
+  font-size: clamp(3rem, 5vw, 7rem);
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  color: var(--text);
 }
 
 .links {
@@ -998,9 +1041,9 @@ h1 {
 }
 
 .links a {
-  font-size: var(--s2);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
+  font-size: clamp(1.6rem, 2.4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 .reveal {
@@ -1028,17 +1071,18 @@ h1 {
   }
 
   .heroCopy {
-    grid-column: 1 / span 7;
+    grid-column: 1 / span 6;
     padding-right: 0;
   }
 
   .heroFacts {
-    grid-column: 1 / span 7;
+    grid-column: 1 / span 6;
   }
 
   .heroMedia {
-    grid-column: 8 / -1;
+    grid-column: 7 / -1;
     width: 100%;
+    aspect-ratio: 16 / 10;
   }
 }
 
@@ -1066,14 +1110,14 @@ h1 {
   }
 
   .hero {
-    min-height: auto;
+    min-height: 100svh;
     width: 100%;
     margin-top: 0;
   }
 
   .heroInner {
     align-content: start;
-    row-gap: 2.2rem;
+    row-gap: 2rem;
     padding-block: 3rem 3.5rem;
   }
 
@@ -1128,7 +1172,7 @@ h1 {
     width: min(100%, 420px);
     justify-self: start;
     aspect-ratio: 4 / 3;
-    order: 2;
+    order: 3;
   }
 
   .heroMedia img {
@@ -1137,9 +1181,10 @@ h1 {
 
   .hero h1 {
     max-width: 100%;
-    font-size: clamp(4rem, 18vw, 6.4rem);
-    line-height: 0.82;
+    font-size: clamp(4.4rem, 20vw, 6.8rem);
+    line-height: 0.78;
     letter-spacing: -0.07em;
+    white-space: normal;
   }
 
   .hero .heroLead {
@@ -1149,12 +1194,28 @@ h1 {
   .heroCopy {
     gap: 1.2rem;
     padding-top: 0;
+    order: 2;
+    grid-row: auto;
   }
 
   .heroFacts {
-    order: 3;
+    order: 4;
     max-width: 24rem;
     margin-top: 0;
+    grid-row: auto;
+  }
+
+  .heroFacts dl {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .heroServices {
+    font-size: clamp(2rem, 10vw, 3.2rem);
+  }
+
+  .heroMedia {
+    grid-row: auto;
   }
 
   .heroFacts div {
@@ -1164,17 +1225,31 @@ h1 {
 
   .workPreview {
     justify-self: start;
-    width: min(74vw, 260px);
+    width: min(82vw, 320px);
     transform-origin: 0 50%;
   }
 
   .workPreview:hover,
   .workPreview:focus-visible {
-    transform: scale(1.22);
+    transform: scale(1.04);
+  }
+
+  .statement,
+  .section,
+  .contact {
+    padding-inline: var(--page);
+  }
+
+  .statement {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    padding-block: 5.5rem;
   }
 
   .storyText {
-    line-height: 1.18;
+    grid-column: auto;
+    font-size: clamp(2.2rem, 12vw, 4rem);
+    line-height: 1;
   }
 
   .inlinePreview {
@@ -1200,12 +1275,48 @@ h1 {
     text-align: left;
   }
 
+  .section,
+  .contact {
+    min-height: auto;
+  }
+
+  .sectionHead h2 {
+    font-size: clamp(4rem, 20vw, 7rem);
+    line-height: 0.82;
+  }
+
+  .workRow {
+    min-height: auto;
+    row-gap: 1.4rem;
+    padding-block: 2.4rem;
+  }
+
+  .workRow h3,
+  .resumeItem h3 {
+    font-size: clamp(2.2rem, 12vw, 4rem);
+    line-height: 0.9;
+  }
+
   .studioGrid {
     grid-template-columns: 1fr;
   }
 
   .studioItem {
-    min-height: 160px;
+    min-height: 220px;
+  }
+
+  .resumeItem {
+    min-height: auto;
+    row-gap: 1.1rem;
+  }
+
+  .contactGrid {
+    row-gap: 2rem;
+  }
+
+  .contactGrid > p {
+    font-size: clamp(2.4rem, 13vw, 4.4rem);
+    line-height: 0.96;
   }
 
   .skills-list {
