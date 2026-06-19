@@ -1232,9 +1232,9 @@ h1 {
   }
 
   .hero .heroLead {
-    max-width: 22rem;
-    font-size: clamp(1.2rem, 6vw, 1.65rem);
-    line-height: 1.22;
+    max-width: 24.5rem;
+    font-size: clamp(1.12rem, 5.2vw, 1.46rem);
+    line-height: 1.26;
   }
 
   .heroCopy {
