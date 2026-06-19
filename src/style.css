@@ -1348,7 +1348,10 @@ h1 {
 
   .contactGrid > p {
     max-width: 22rem;
+    color: rgba(5, 5, 5, 0.82);
+    font-family: var(--font-body);
     font-size: clamp(1.2rem, 6vw, 1.65rem);
+    font-weight: 400;
     line-height: 1.22;
     letter-spacing: 0;
   }
