@@ -1106,7 +1106,7 @@ h1 {
   .heroInner {
     align-content: start;
     row-gap: 2rem;
-    padding-block: 3rem 3.5rem;
+    padding-block: 2rem 3.5rem;
   }
 
   .heroInner,
