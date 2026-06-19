@@ -74,35 +74,45 @@ const experience = [
   {
     role: 'Web Designer',
     company: 'Everworker',
-    period: 'March 2024 / May 2026',
+    logo: 'EW',
+    period: '2024 - 2026',
+    employment: 'Full-time remote',
     text:
       'Designed product and web experiences for an AI workforce platform. Created UI mockups, prototypes, visual systems, diagrams, marketing assets, responsive HubSpot pages, CSS and JavaScript improvements.',
   },
   {
     role: 'Design Team Lead',
     company: 'Simplenight',
-    period: 'May 2025 / April 2026',
+    logo: 'SN',
+    period: '2025 - 2026',
+    employment: 'Full-time remote',
     text:
       'Designed travel technology experiences, white label booking flows, dashboards, partner platforms, sales decks, one pagers, booth graphics and event materials.',
   },
   {
     role: 'Media Design Lead',
     company: 'ISDK',
-    period: 'January 2022 / April 2026',
+    logo: 'IS',
+    period: '2022 - 2026',
+    employment: 'Full-time remote',
     text:
       'Led UI, presentation, web and marketing design work. Implemented Agile design workflow and developed a style guide to standardize company materials.',
   },
   {
     role: 'Senior Graphic Designer',
     company: 'McKinsey & Company',
-    period: 'January 2019 / January 2022',
+    logo: 'M',
+    period: '2019 - 2022',
+    employment: 'Full-time office',
     text:
       'Created UI and UX for web and mobile applications, print materials, executive presentations, dashboard visuals and workshop materials.',
   },
   {
     role: 'Senior Lead Designer',
     company: 'Golbex',
-    period: 'December 2017 / December 2018',
+    logo: 'G',
+    period: '2017 - 2018',
+    employment: 'Full-time remote',
     text:
       'Designed brand identities, corporate websites, promotional graphics, advertising materials and UI for cryptocurrency exchange products across web, iOS and Android.',
   },
@@ -353,13 +363,18 @@ function App() {
               key={`${item.company}${item.period}`}
               style={{ '--i': index }}
             >
+              <div className="companyLogo" aria-hidden="true">
+                {item.logo}
+              </div>
+
               <div className="resumeMeta">
                 <p className="date">{item.period}</p>
-                <p className="company">{item.company}</p>
+                <p className="date">{item.employment}</p>
               </div>
 
               <div className="resumeTitle">
-                <h3>{item.role}</h3>
+                <h3>{item.company}</h3>
+                <p className="role">{item.role}</p>
               </div>
 
               <p className="resumeText">{item.text}</p>
