@@ -1299,6 +1299,19 @@ h1 {
     line-height: 0.92;
   }
 
+  .sectionHead .splitText {
+    display: flex;
+    width: 100%;
+  }
+
+  .sectionIntro {
+    grid-column: auto;
+    max-width: 24rem;
+    margin-top: 1.25rem;
+    font-size: clamp(1.1rem, 5vw, 1.45rem);
+    line-height: 1.35;
+  }
+
   .workRow {
     min-height: auto;
     row-gap: 1.4rem;
@@ -1334,8 +1347,10 @@ h1 {
   }
 
   .contactGrid > p {
-    font-size: clamp(2.4rem, 13vw, 4.4rem);
-    line-height: 1.02;
+    max-width: 22rem;
+    font-size: clamp(1.2rem, 6vw, 1.65rem);
+    line-height: 1.22;
+    letter-spacing: 0;
   }
 
   .skills-list {
