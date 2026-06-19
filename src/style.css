@@ -1124,6 +1124,17 @@ h1 {
       #8f8f8d;
   }
 
+  .hero::before {
+    display: block;
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      #8f8f8d 0%,
+      rgba(143, 143, 141, 0.96) 42%,
+      rgba(143, 143, 141, 0) 100%
+    );
+  }
+
   .heroInner {
     min-height: 100svh;
     grid-template-rows: auto 1fr auto;
