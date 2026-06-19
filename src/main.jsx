@@ -266,8 +266,13 @@ function App() {
       <header className="hero is-visible" id="top" style={{ '--hero-bg': `url(${asset('/hero-background.jpg')})` }}>
 
         <div className="heroInner">
-          <h1>
-            <SplitText text="Ilia Mikheenko" />
+          <h1 aria-label="Ilia Mikheenko">
+            <span className="titleLine">
+              <SplitText text="Ilia" />
+            </span>
+            <span className="titleLine">
+              <SplitText text="Mikheenko" />
+            </span>
           </h1>
 
           <div className="heroCopy">
