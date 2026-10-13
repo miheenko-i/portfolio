@@ -1,28 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './style.css'
+import { productCases, caseFromHash } from './cases.js'
+import { CaseStudy, CaseImage } from './CaseStudy.jsx'
 
 const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 
 const selectedWork = [
-  {
-    title: 'AI workforce platform',
-    company: 'Everworker',
-    type: 'Product, web, AI',
-    year: '2024 / 2026',
-    visual: 'product',
-    text:
-      'Product and web experiences for an AI workforce platform, including agent pages, platform pages, onboarding, workflow UI, diagrams, marketing assets, HubSpot pages and implementation support.',
-  },
-  {
-    title: 'Travel technology systems',
-    company: 'Simplenight',
-    type: 'Marketplace UX',
-    year: '2025 / 2026',
-    visual: 'mobile',
-    text:
-      'Booking journeys, itinerary management, account pages, payment flows, post purchase experiences, white label flows, dashboards and partner platforms.',
-  },
   {
     title: 'Digital products and dashboards',
     company: 'ISDK',
@@ -72,13 +56,13 @@ const studioRange = [
 
 const experience = [
   {
-    role: 'Web Designer',
-    company: 'Everworker',
+    role: 'Product and Web Designer',
+    company: 'EverWorker',
     logo: 'EW',
-    period: '2024 - 2026',
+    period: 'Started in 2022',
     employment: 'Full-time remote',
     text:
-      'Designed product and web experiences for an AI workforce platform. Created UI mockups, prototypes, visual systems, diagrams, marketing assets, responsive HubSpot pages, CSS and JavaScript improvements.',
+      'Designed the first interface version for the existing platform from 2022 and the second version’s new design, including canvas and chat experiences. Contributed logic to the third version; another studio created its visual design. Also worked on web experiences and implementation support.',
   },
   {
     role: 'Design Team Lead',
@@ -175,7 +159,30 @@ function SplitText({ text }) {
   )
 }
 
-function App() {
+export function App() {
+  const [hash, setHash] = useState(window.location.hash)
+  const activeCase = caseFromHash(hash)
+
+  useEffect(() => {
+    const change = () => { setHash(window.location.hash); setIsMenuOpen(false) }
+    const escape = (event) => { if (event.key === 'Escape') setIsMenuOpen(false) }
+    window.addEventListener('hashchange', change)
+    window.addEventListener('keydown', escape)
+    return () => { window.removeEventListener('hashchange', change); window.removeEventListener('keydown', escape) }
+  }, [])
+
+  useEffect(() => {
+    document.title = activeCase ? `${activeCase.company} | Ilia Mikheenko` : 'Ilia Mikheenko'
+    const frame = requestAnimationFrame(() => {
+      if (activeCase) {
+        window.scrollTo(0, 0)
+        document.getElementById('case-title')?.focus({ preventScroll: true })
+      } else if (hash && !hash.startsWith('#case/')) {
+        document.getElementById(hash.slice(1))?.scrollIntoView()
+      }
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [hash, activeCase])
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -200,7 +207,7 @@ function App() {
     elements.forEach((element) => observer.observe(element))
 
     return () => observer.disconnect()
-  }, [])
+  }, [activeCase])
 
   useEffect(() => {
     const updateScrollState = () => {
@@ -214,13 +221,14 @@ function App() {
   }, [])
 
   return (
-    <main className={`page ${isScrolled ? 'is-scrolled' : ''} ${isMenuOpen ? 'is-menu-open' : ''}`}>
+    <main className={`page ${isScrolled || activeCase ? 'is-scrolled' : ''} ${isMenuOpen ? 'is-menu-open' : ''}`}>
+      <a className="skipLink" href={activeCase ? '#case-title' : '#work'} onClick={activeCase ? (event) => { event.preventDefault(); document.getElementById('case-title')?.focus() } : undefined}>Skip to content</a>
       <div className="topbar">
         <a className="brand" href="#top" aria-label="Home">
           <span>Ilia Mikheenko</span>
         </a>
 
-        <nav className="nav" aria-label="Main navigation">
+        <nav className="nav" aria-label="Main navigation" id="main-navigation">
           <a href="#work" onClick={() => setIsMenuOpen(false)}>
             Work
           </a>
@@ -266,6 +274,7 @@ function App() {
           type="button"
           aria-label="Toggle navigation"
           aria-expanded={isMenuOpen}
+          aria-controls="main-navigation"
           onClick={() => setIsMenuOpen((open) => !open)}
         >
           <span />
@@ -273,6 +282,7 @@ function App() {
         </button>
       </div>
 
+      {activeCase ? <CaseStudy item={activeCase} /> : <>
       <header className="hero is-visible" id="top" style={{ '--hero-bg': `url(${asset('/hero-background.jpg')})` }}>
 
         <div className="heroInner">
@@ -287,9 +297,9 @@ function App() {
 
           <div className="heroCopy">
             <p className="heroLead">
-              I design product interfaces, websites, AI workflow materials and B2B communication
-              systems that help teams explain value clearly, move faster and turn early ideas into
-              usable digital products.
+              I design product interfaces for complex workflows, AI tools and everyday tasks.
+              My work connects product logic, clear interactions and visual systems, from early
+              platform versions to hands-on prototypes.
             </p>
 
             <div className="heroActions">
@@ -307,21 +317,18 @@ function App() {
           </h2>
         </div>
 
+        <p className="workIntro">Product work across AI platforms, design tools and everyday workflows. Each case covers the problem, my contribution and the limits of what the work demonstrates.</p>
         <div className="workList">
-          {selectedWork.map((item, index) => (
-            <article className="workRow reveal" key={item.title} style={{ '--i': index }}>
+          {productCases.map((item, index) => (
+            <article className="workRow productRow reveal" key={item.id} style={{ '--i': Math.min(index, 2) }}>
               <div className="workInfo">
                 <span>{item.company}</span>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
+                <h3><a href={`#case/${item.id}`}>{item.title}</a></h3>
+                <p>{item.summary}</p>
+                <a className="textLink caseReadLink" href={`#case/${item.id}`} aria-label={`Read ${item.company} case study`}>Read case study <span aria-hidden="true">↗</span></a>
               </div>
-              <div className="workMeta">
-                <span>{item.type}</span>
-                <span>{item.year}</span>
-              </div>
-              <button className={`workPreview preview-${item.visual}`} type="button">
-                <span>{item.title}</span>
-              </button>
+              <div className="workMeta"><span>{item.category}</span><span>{item.period}</span></div>
+              <a className="caseCover" href={`#case/${item.id}`} aria-label={`View ${item.company} case study`}><CaseImage image={item.images[0]} compact /></a>
             </article>
           ))}
         </div>
@@ -334,6 +341,9 @@ function App() {
           </h2>
         </div>
 
+        <div className="practiceList">
+          {selectedWork.map((item) => <article className="practiceItem" key={item.company}><span>{item.company}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}
+        </div>
         <div className="studioGrid">
           {studioRange.map((item, index) => (
             <article className="studioItem reveal" key={item.title} style={{ '--i': index }}>
@@ -430,12 +440,15 @@ function App() {
           </div>
         </div>
       </section>
+      </>}
     </main>
   )
 }
 
-createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root')
+if (rootElement) createRoot(rootElement).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
 )
+
