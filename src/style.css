@@ -1426,3 +1426,92 @@ h1 {
     transform: none;
   }
 }
+
+
+/* Product case studies: preserve the portfolio's editorial, monochrome system. */
+:root { --muted: #626260; }
+:focus-visible { outline: 2px solid var(--text); outline-offset: 5px; }
+section[id] { scroll-margin-top: 90px; }
+.skipLink { position: fixed; z-index: 100; top: 1rem; left: 1rem; padding: .75rem 1rem; background: var(--paper); transform: translateY(-200%); }
+.skipLink:focus { transform: translateY(0); }
+.textLink { display: inline-flex; align-items: center; gap: 1rem; min-height: 44px; text-decoration: underline; text-underline-offset: .3em; text-decoration-thickness: 1px; }
+.textLink:hover { color: var(--accent); }
+.workIntro { max-width: 42rem; color: var(--muted); margin: -2rem 0 3rem; }
+.productRow .workInfo { padding-right: 0; }
+.productRow h3 { font-size: clamp(2rem, 3.9vw, 4.8rem); }
+.productRow h3 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .1em; }
+.caseReadLink { margin-top: 1.3rem; font-size: var(--s-1); }
+.caseCover { grid-column: 8 / -1; width: 100%; display: block; }
+.caseImage { margin: 0; min-width: 0; }
+.caseImage img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: contain; background: var(--paper); border: 1px solid var(--line); }
+.imagePlaceholder { min-height: 16rem; aspect-ratio: 16 / 10; display: flex; flex-direction: column; justify-content: center; padding: clamp(1.4rem, 3vw, 3rem); gap: .8rem; background: var(--paper); border: 1px dashed #a6a6a0; color: var(--text); }
+.placeholderLabel { color: var(--muted); font-size: .75rem; }
+.placeholderTitle { font-family: var(--font-heading); font-size: clamp(1.6rem, 2.5vw, 2.6rem); line-height: 1.12; letter-spacing: -.035em; }
+.placeholderNote { font-size: .86rem; color: var(--muted); max-width: 23rem; }
+.caseCover:hover .imagePlaceholder { border-color: var(--text); }
+.caseImage figcaption { max-width: 45rem; margin-top: .9rem; font-size: .86rem; line-height: 1.5; color: var(--muted); }
+.practiceList { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.practiceItem { border-top: 1px solid var(--line); padding-top: 1.2rem; }
+.practiceItem > span { color: var(--muted); font-size: var(--s-1); }
+.practiceItem h3 { margin-block: 1rem; font-weight: 400; font-size: clamp(1.6rem, 2.8vw, 3rem); line-height: 1.1; letter-spacing: -.035em; }
+.practiceItem p { max-width: 40rem; color: var(--muted); }
+.caseStudy { max-width: 1232px; margin: 0 auto; padding: 7rem var(--page) 4rem; }
+.caseBack { margin-bottom: 3rem; font-size: var(--s-1); }
+.caseCompany { font-size: 1rem; color: var(--muted); margin-bottom: 1.2rem; }
+.caseHeader h1 { max-width: 990px; font-size: clamp(3rem, 7.4vw, 7rem); line-height: .98; letter-spacing: -.045em; font-weight: 400; }
+.caseHeader h1:focus { outline: none; }
+.caseIntro { max-width: 46rem; font-size: clamp(1.2rem, 1.8vw, 1.6rem); line-height: 1.45; margin: 2rem 0 3rem; color: var(--muted); }
+.caseFacts { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; border-block: 1px solid var(--line); margin: 0; padding-block: 1.7rem; }
+.caseFacts dt { font-size: .8rem; color: var(--muted); margin-bottom: .6rem; }
+.caseFacts dd { margin: 0; font-size: .95rem; line-height: 1.55; }
+.caseSection { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; padding-block: 3.5rem; border-bottom: 1px solid var(--line); }
+.caseSection h2 { font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.15; font-weight: 400; letter-spacing: -.025em; }
+.caseBody { min-width: 0; font-size: 1.1rem; line-height: 1.65; }
+.caseBody h3 { font-size: 1.25rem; font-weight: 500; letter-spacing: -.02em; line-height: 1.3; margin-bottom: .65rem; }
+.caseDecisions { display: grid; gap: 2.3rem; }
+.caseEvolution { padding: 0; margin: 0; list-style: none; display: grid; gap: 1.6rem; }
+.caseFlow { margin: 0; padding: 0; list-style-position: inside; }
+.caseFlow li { border-bottom: 1px solid var(--line); padding: .7rem 0; }
+.caseFlow li:first-child { padding-top: 0; }
+.caseFlow li:last-child { border: 0; }
+.caseNote { color: var(--muted); font-size: .93rem; line-height: 1.6; margin-top: 1.3rem; }
+.caseHeroImage { margin-block: 3rem; }
+.caseGallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 2rem; margin-block: 3rem; }
+.caseFooter { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding-top: 3rem; }
+.nextCase { display: grid; grid-template-columns: 1fr auto; gap: .4rem 2rem; }
+.nextCase > span:first-child { grid-column: 1 / -1; color: var(--muted); font-size: .85rem; }
+.nextCase strong { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 400; }
+.nextCase:hover strong { text-decoration: underline; text-underline-offset: .2em; }
+@media (min-width: 821px) and (max-width: 1100px) {
+  .navTools .locationLink { display: none; }
+  .nav { gap: 1rem; }
+}
+@media (max-width: 820px) {
+  .caseCover { grid-column: 1 / -1; }
+  .workIntro { margin-top: -1rem; }
+  .productRow .workInfo { padding-right: 0; }
+  .productRow .workMeta { grid-column: 1; }
+  .productRow h3 { font-size: clamp(2rem, 8vw, 3.5rem); }
+  .caseStudy { padding-top: 5.5rem; }
+  .caseBack { margin-bottom: 2rem; }
+  .caseHeader h1 { font-size: clamp(2.8rem, 11vw, 5rem); }
+  .caseIntro { margin-top: 1.5rem; }
+  .caseFacts { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .caseFacts > div:first-child { grid-column: 1 / -1; }
+  .caseSection { grid-template-columns: 1fr; gap: 1.5rem; padding-block: 2.5rem; }
+  .caseBody { font-size: 1rem; }
+  .caseHeroImage, .caseGallery { margin-block: 2rem; }
+  .imagePlaceholder { min-height: 13rem; }
+  .caseFooter { align-items: flex-start; flex-direction: column; }
+  .practiceList { grid-template-columns: 1fr; gap: 2.5rem; }
+  .page.is-scrolled .nav { left: var(--page); top: 4.45rem; transform: translateY(-.65rem); }
+  .page.is-scrolled.is-menu-open .nav { transform: translateY(0); }
+  .heroCopy { padding-top: 4.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .splitChar, .heroLead, .heroActions { opacity: 1 !important; transform: none !important; filter: none !important; }
+}
+@media (max-width: 820px) {
+  .nav, .navTools { visibility: hidden; }
+  .page.is-menu-open .nav, .page.is-menu-open .navTools { visibility: visible; }
+}
