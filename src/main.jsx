@@ -244,6 +244,11 @@ export function App() {
           <a href="#contact" onClick={() => setIsMenuOpen(false)}>
             Contact
           </a>
+          <div className="mobileNavContacts" aria-label="Quick contact">
+            <a href="https://www.google.com/maps/search/?api=1&query=Batumi%2C%20Georgia" target="_blank" rel="noreferrer">Batumi, Georgia</a>
+            <a href="https://www.linkedin.com/in/miheenko/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="mailto:mobile.mih@gmail.com">Email</a>
+          </div>
         </nav>
 
         <div className="navTools" aria-label="Contact details">

@@ -152,3 +152,13 @@ test('reduced-motion styles leave animated text visible', async () => {
   assert.match(css, /prefers-reduced-motion: reduce[\s\S]*\.splitChar, \.heroLead, \.heroActions \{ opacity: 1 !important/)
   assert.match(css, /@media \(max-width: 820px\)[\s\S]*\.caseSection \{ grid-template-columns: 1fr/)
 })
+
+
+test('mobile quick contact stays inside the navigation menu', async () => {
+  await mount()
+  const row = container.querySelector('.nav .mobileNavContacts')
+  assert.ok(row)
+  assert.equal(row.querySelectorAll('a').length, 3)
+  const css = await readFile(new URL('../src/style.css', import.meta.url), 'utf8')
+  assert.match(css, /@media \(max-width: 820px\) \{\s*\.navTools \{ display: none/)
+})
