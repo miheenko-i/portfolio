@@ -195,6 +195,7 @@ test('EverWorker renders five original screenshots in story order with full-size
     assert.equal(link.getAttribute('href'), image.getAttribute('src'))
     assert.equal(link.target, '_blank')
     assert.ok(image.getAttribute('width') && image.getAttribute('height'))
+    assert.equal(image.style.aspectRatio, `${image.getAttribute('width')} / ${image.getAttribute('height')}`)
     const bytes = await readFile(new URL(`../public/${image.getAttribute('src').replace('/portfolio/', '')}`, import.meta.url))
     assert.equal(bytes.subarray(1, 4).toString(), 'PNG')
   }
