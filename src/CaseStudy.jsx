@@ -38,6 +38,26 @@ export function CaseStudy({ item }) {
         </dl>
       </header>
 
+      {item.downloads?.length > 0 && (
+        <section className="caseSection caseDownloads" aria-labelledby="case-downloads-title">
+          <h2 id="case-downloads-title">Case materials</h2>
+          <div className="caseBody">
+            <p>The full case study in Russian, with project screenshots.</p>
+            <ul className="caseDownloadList">
+              {item.downloads.map((file) => (
+                <li key={file.path}>
+                  <a href={asset(file.path)} download={file.path.split('/').pop()}>
+                    <span>{file.label}</span>
+                    <span className="caseDownloadFormat">{file.format}</span>
+                    <span aria-hidden="true">↓</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
       <section className="caseSection">
         <h2>The problem</h2>
         <div className="caseBody"><p>{item.problem}</p></div>
@@ -90,3 +110,4 @@ export function CaseStudy({ item }) {
     </article>
   )
 }
+

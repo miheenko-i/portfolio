@@ -11,6 +11,11 @@ export const productCases = [
     intro: 'EverWorker began as a developer-built platform. Starting in 2022, I designed its first user-friendly interface, then a new design for the second version. For the third version, I contributed product logic while another studio created the visual design.',
     role: 'Platform design for versions one and two. Product logic for version three; its visual design was created by another studio.',
     stage: 'Three platform versions',
+    downloads: [
+      { label: 'Case study', format: 'PDF, Russian', path: 'downloads/everworker/EverWorker_Product_Case_RU.pdf' },
+      { label: 'Editable case study', format: 'DOCX, Russian', path: 'downloads/everworker/EverWorker_Product_Case_RU.docx' },
+      { label: 'Design screenshots', format: 'ZIP, 11 screens', path: 'downloads/everworker/EverWorker_Design_Screenshots.zip' },
+    ],
     problem: 'The initial developer-built interface was technically complex for end users without a development background. The design goal was to make that creation process easier to approach while retaining the existing canvas.',
     contribution: 'I designed the first interface version for the existing platform starting in 2022 and the new design for version two. I designed the canvas, then a chat experience that complemented it by automating the creation of workers. For version three, I contributed the logic; another studio created the visual design.',
     evolution: [
@@ -161,3 +166,4 @@ export function caseFromHash(hash) {
   const match = /^#case\/([a-z0-9-]+)$/.exec(hash)
   return match ? productCases.find((item) => item.id === match[1]) || null : null
 }
+

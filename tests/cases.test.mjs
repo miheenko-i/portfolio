@@ -162,3 +162,27 @@ test('mobile quick contact stays inside the navigation menu', async () => {
   const css = await readFile(new URL('../src/style.css', import.meta.url), 'utf8')
   assert.match(css, /@media \(max-width: 820px\) \{\s*\.navTools \{ display: none/)
 })
+
+
+
+test('EverWorker offers three public base-path-aware downloads', async () => {
+  window.history.replaceState({}, '', '/portfolio/#case/everworker')
+  await mount()
+  const links = [...container.querySelectorAll('.caseDownloadList a')]
+  assert.equal(links.length, 3)
+  const expected = ['EverWorker_Product_Case_RU.pdf', 'EverWorker_Product_Case_RU.docx', 'EverWorker_Design_Screenshots.zip']
+  for (const [index, link] of links.entries()) {
+    assert.equal(link.getAttribute('href'), `/portfolio/downloads/everworker/${expected[index]}`)
+    assert.equal(link.getAttribute('download'), expected[index])
+    const bytes = await readFile(new URL(`../public/downloads/everworker/${expected[index]}`, import.meta.url))
+    assert.ok(bytes.length > 1000)
+    assert.equal(bytes.subarray(0, index === 0 ? 4 : 2).toString(), index === 0 ? '%PDF' : 'PK')
+  }
+})
+
+test('download section leaves other cases unchanged', async () => {
+  window.history.replaceState({}, '', '/portfolio/#case/intosquare')
+  await mount()
+  assert.equal(container.querySelector('.caseDownloads'), null)
+  assert.equal(productCases.filter(item => item.downloads).length, 1)
+})
