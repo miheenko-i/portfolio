@@ -4,7 +4,7 @@ The existing React/Vite portfolio now has six product case studies. EverWorker i
 
 ## Edit the content
 
-`src/cases.js` contains the public-facing copy and image definitions. `src/CaseStudy.jsx` renders each case. Hash routes such as `#case/everworker` work with the existing GitHub Pages base path without server routing changes.
+`src/cases.js` contains the case list. The EverWorker story and original screenshot definitions are in `src/everworker.js`; other cases remain in `src/cases.js`. `src/CaseStudy.jsx` renders each case. Hash routes such as `#case/everworker` work with the existing GitHub Pages base path without server routing changes.
 
 ## Replace the image placeholders
 
@@ -14,13 +14,13 @@ The existing React/Vite portfolio now has six product case studies. EverWorker i
 4. Add a descriptive `alt` and update `caption` to describe the actual image and its design credit.
 5. Run `npm test` and `npm run build`, then check desktop and phone layouts. A failed image falls back to an explicit placeholder instead of a broken preview.
 
-The first image in each case is also its work-list cover. No screenshots, client data, private documents or private source links have been published by this change.
+The first image in each case is also its work-list cover. EverWorker uses five original, owner-approved project screenshots. Other cases still use explicit placeholders. Never publish private source links.
 
 ## Image checklist
 
 | Case | Needed images |
 | --- | --- |
-| EverWorker | First interface/canvas; second-version redesign; canvas and conversational worker creation. If showing version-three visuals, credit the external studio, with Ilia credited for product logic. |
+| EverWorker | Five original PNG screens in `public/cases/everworker/`: developer-built starting point, first home redesign, setup wizard, canvas assistant and worker catalog. Each can be opened at full size. Keep the design credits and illustrative-data captions. |
 | IntoSquare | One connected plugin/extension import; source Figma layout beside editable Squarespace result and a mobile check. |
 | Simplenight Demo Platform | Sanitized company/demo hierarchy; AI-assisted dataset update and review. |
 | Travel AI | Manual vs AI itinerary controls; a changed event visibly reflected in the plan. |
@@ -29,7 +29,7 @@ The first image in each case is also its work-list cover. No screenshots, client
 
 ## Editorial boundaries
 
-- EverWorker: the developer-built platform existed before Ilia's first interface design in 2022. Ilia designed the first interface and second redesign; the third version's visual design belongs to another studio. Canvas came before a complementary chat for worker creation. Later version dates are not asserted.
+- EverWorker: visual node connections existed before Ilia's redesign. His platform involvement began in 2022. The later iterations focus on the second half of 2025, with a shift toward ready-made workers in early 2026. Distinguish the early chat for testing existing agents from the later authoring assistant. Ilia proposed the implemented setup wizard and authoring assistance; version-three visual design belongs to another studio. Results are qualitative. Screenshot figures and placeholder copy are not measured outcomes.
 - IntoSquare: plugin and extension publication is separate from paid launch, revenue and adoption.
 - Simplenight: distinguish requirements, proposals and confirmed implementation. AI-assisted dataset updates are described as implemented; not every platform requirement is.
 - October 2026 Demo Platform and Travel AI reconstructions use mock data/simulated AI and are not historical production applications. Label any future screenshots or links accordingly.
@@ -42,3 +42,8 @@ The first image in each case is also its work-list cover. No screenshots, client
 - `npm run build`: production build.
 - This repository's existing `pages.yml` deploys changes pushed to `main`. Work should be reviewed on the case-study branch before any merge or deployment.
 - Browser-rendered desktop/mobile verification is separate from DOM tests and still needs a reachable preview. Do not describe semantic tests as visual QA.
+
+## EverWorker download archive
+
+The PDF, DOCX and screenshot ZIP remain at their existing paths in `public/downloads/everworker/`. The owner requested removal of their links from the English website case; the files themselves are unchanged.
+

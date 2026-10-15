@@ -3,13 +3,17 @@ import { productCases } from './cases.js'
 
 const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 
-export function CaseImage({ image, compact = false }) {
+export function CaseImage({ image, compact = false, fullSize = false }) {
   const [failed, setFailed] = useState(false)
   useEffect(() => setFailed(false), [image.src])
   return (
     <figure className={`caseImage${compact ? ' caseImageCompact' : ''}`}>
       {image.src && !failed ? (
-        <img src={asset(image.src)} alt={image.alt || image.title} loading="lazy" onError={() => setFailed(true)} />
+        fullSize ? (
+          <a className="caseImageLink" href={asset(image.src)} target="_blank" rel="noreferrer" aria-label={`${image.title}, open full-size screenshot in a new tab`}>
+            <img src={asset(image.src)} width={image.width} height={image.height} alt={image.alt || image.title} loading="lazy" onError={() => setFailed(true)} />
+          </a>
+        ) : <img src={asset(image.src)} alt={image.alt || image.title} loading="lazy" onError={() => setFailed(true)} />
       ) : (
         <div className="imagePlaceholder">
           <span className="placeholderLabel">Image placeholder</span>
@@ -17,8 +21,34 @@ export function CaseImage({ image, compact = false }) {
           <span className="placeholderNote">{failed ? 'Image unavailable. Approved screen to follow.' : 'Approved project screen to follow.'}</span>
         </div>
       )}
-      {!compact && <figcaption>{image.caption}</figcaption>}
+      {!compact && <figcaption>{image.caption}{fullSize && image.src && !failed && <span className="caseImageHint">Select image to view full size.</span>}</figcaption>}
     </figure>
+  )
+}
+
+function CaseDownloads({ item }) {
+  return (
+    <>
+      {item.downloads?.length > 0 && (
+        <section className="caseSection caseDownloads" aria-labelledby="case-downloads-title">
+          <h2 id="case-downloads-title">Case materials</h2>
+          <div className="caseBody">
+            <p>Russian case document and screenshot archive.</p>
+            <ul className="caseDownloadList">
+              {item.downloads.map((file) => (
+                <li key={file.path}>
+                  <a href={asset(file.path)} download={file.path.split('/').pop()}>
+                    <span>{file.label}</span>
+                    <span className="caseDownloadFormat">{file.format}</span>
+                    <span aria-hidden="true">↓</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+    </>
   )
 }
 
@@ -38,26 +68,27 @@ export function CaseStudy({ item }) {
         </dl>
       </header>
 
-      {item.downloads?.length > 0 && (
-        <section className="caseSection caseDownloads" aria-labelledby="case-downloads-title">
-          <h2 id="case-downloads-title">Case materials</h2>
-          <div className="caseBody">
-            <p>The full case study in Russian, with project screenshots.</p>
-            <ul className="caseDownloadList">
-              {item.downloads.map((file) => (
-                <li key={file.path}>
-                  <a href={asset(file.path)} download={file.path.split('/').pop()}>
-                    <span>{file.label}</span>
-                    <span className="caseDownloadFormat">{file.format}</span>
-                    <span aria-hidden="true">↓</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
+      {!item.story && <CaseDownloads item={item} />}
 
+      {item.story ? (
+        <div className="caseStory">
+          <p className="caseNote caseStoryPeriod">{item.story.period}</p>
+          {item.story.sections.map((section) => (
+            <section className="caseStorySection" key={section.title}>
+              <div className="caseSection">
+                <h2>{section.title}</h2>
+                <div className="caseBody">{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+              </div>
+              <CaseImage image={item.images.find((image) => image.key === section.imageKey)} fullSize />
+            </section>
+          ))}
+          <section className="caseSection caseOutcome">
+            <h2>What I learned</h2>
+            <div className="caseBody"><p>{item.story.closing}</p></div>
+          </section>
+        </div>
+      ) : (
+        <>
       <section className="caseSection">
         <h2>The problem</h2>
         <div className="caseBody"><p>{item.problem}</p></div>
@@ -102,6 +133,8 @@ export function CaseStudy({ item }) {
         <h2>Outcome and limits</h2>
         <div className="caseBody"><p>{item.outcome}</p><p className="caseNote">{item.limit}</p></div>
       </section>
+        </>
+      )}
 
       <footer className="caseFooter">
         <a className="textLink" href="#work">All selected work</a>
