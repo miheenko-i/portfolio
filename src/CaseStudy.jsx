@@ -66,7 +66,7 @@ function StorySection({ section, item }) {
         </div>
       </div>
       {section.id === 'foundation' && <p className="caseNote caseVisualCredit">{item.story.visualNote}</p>}
-      {section.imageKeys && <div className={`caseScreenGroup${section.imageKeys.length % 2 ? ' hasLeadScreen' : ''}`}>
+      {section.imageKeys && <div className="caseScreenGroup">
         {section.imageKeys.map((key) => <CaseImage image={item.images.find((image) => image.key === key)} fullSize key={key} />)}
       </div>}
     </section>

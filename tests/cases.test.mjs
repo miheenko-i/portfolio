@@ -182,17 +182,17 @@ test('EverWorker removes download links while retaining the published files', as
   }
 })
 
-test('EverWorker renders sixteen original screenshots in coherent groups with full-size links', async () => {
+test('EverWorker renders seventeen original screenshots in coherent groups with full-size links', async () => {
   window.history.replaceState({}, '', '/portfolio/#case/everworker')
   await mount()
   const sections = [...container.querySelectorAll('.caseStorySection')]
   assert.equal(sections.length, 9)
   const groups = [...container.querySelectorAll('.caseScreenGroup')]
-  assert.deepEqual(groups.map(group => group.querySelectorAll('img').length), [4, 2, 4, 3, 3])
+  assert.deepEqual(groups.map(group => group.querySelectorAll('img').length), [4, 3, 4, 3, 3])
   assert.equal(container.querySelectorAll('.imagePlaceholder').length, 0)
   const images = [...container.querySelectorAll('.caseStory img')]
-  assert.equal(images.length, 16)
-  assert.equal(new Set(images.map(image => image.src)).size, 16)
+  assert.equal(images.length, 17)
+  assert.equal(new Set(images.map(image => image.src)).size, 17)
   for (const image of images) {
     const link = image.closest('.caseImageLink')
     assert.ok(image.alt.length > 30)
@@ -206,11 +206,15 @@ test('EverWorker renders sixteen original screenshots in coherent groups with fu
     assert.equal(bytes.readUInt32BE(20), Number(image.getAttribute('height')))
   }
   assert.match(images[0].src, /early-studio/)
-  assert.match(images[15].src, /catalog-home/)
+  assert.match(images[1].src, /first-studio\.png$/, 'Keep the original first-version After screen')
+  assert.deepEqual([...groups[1].querySelectorAll('img')].map(image => image.src.split('/').pop()), ['canvas-settings.png', 'node-guidance.png', 'agent-library.png'])
+  assert.match(images[16].src, /catalog-home/)
   const words = container.querySelector('.caseStudy').textContent.trim().split(/\s+/).length
   assert.ok(words >= 1300 && words <= 1800, `Keep the expanded case readable: ${words} words`)
   const css = await readFile(new URL('../src/style.css', import.meta.url), 'utf8')
-  assert.match(css, /@media \(max-width: 820px\) \{\s*\.caseScreenGroup \{ grid-template-columns: 1fr/)
+  assert.match(css, /\.caseScreenGroup \{ display: grid; grid-template-columns: minmax\(0, 1fr\)/)
+  assert.doesNotMatch(css, /caseScreenGroup[^}]*repeat\(2/)
+  assert.doesNotMatch(css, /hasLeadScreen/)
 
 })
 

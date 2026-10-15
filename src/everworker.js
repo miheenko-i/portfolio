@@ -98,6 +98,7 @@ export const everworker = {
           }
         ],
         "imageKeys": [
+          "canvas-settings",
           "node-guidance",
           "agent-library"
         ],
@@ -244,6 +245,15 @@ export const everworker = {
       "height": 1241,
       "alt": "Agent settings drawer showing model, system prompt, temperature and additional configuration fields beside the canvas.",
       "caption": "Settings: a more structured interface, with technical decisions still present."
+    },
+    {
+      "key": "canvas-settings",
+      "title": "Canvas and node settings",
+      "src": "cases/everworker/canvas-settings.png",
+      "width": 1847,
+      "height": 1157,
+      "alt": "Canvas with a node library on the left, connected input and model nodes in the center, and node settings on the right.",
+      "caption": "The canvas with its node library and settings visible alongside the workflow."
     },
     {
       "key": "node-guidance",
