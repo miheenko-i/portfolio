@@ -11,7 +11,7 @@ export function CaseImage({ image, compact = false, fullSize = false }) {
       {image.src && !failed ? (
         fullSize ? (
           <a className="caseImageLink" href={asset(image.src)} target="_blank" rel="noreferrer" aria-label={`${image.title}, open full-size screenshot in a new tab`}>
-            <img src={asset(image.src)} width={image.width} height={image.height} alt={image.alt || image.title} loading="lazy" onError={() => setFailed(true)} />
+            <img src={asset(image.src)} width={image.width} height={image.height} style={{ aspectRatio: `${image.width} / ${image.height}` }} alt={image.alt || image.title} loading="lazy" onError={() => setFailed(true)} />
           </a>
         ) : <img src={asset(image.src)} alt={image.alt || image.title} loading="lazy" onError={() => setFailed(true)} />
       ) : (
