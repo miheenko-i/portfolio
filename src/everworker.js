@@ -43,6 +43,10 @@ export const everworker = {
           "I worked on product UX/UI across the platform’s evolution, starting in 2022, from the first redesign through later creation flows and the move toward ready-made workers. My scope covered navigation, settings, canvas interactions, guided setup, AI-assisted authoring and the experience around finding a worker.",
           "I proposed the setup wizard and the later authoring assistant. I also attended customer interviews and worked with the team’s findings as the product direction changed. My contribution combined interface design with decisions about what users should do themselves and where the product could help.",
           "I designed the first two visual versions. In the third version, I contributed product logic while another studio developed the visual design. The later screens show that collaboration."
+        ],
+        "emphasis": [
+          "proposed the setup wizard and the later authoring assistant",
+          "attended customer interviews"
         ]
       },
       {
@@ -68,7 +72,7 @@ export const everworker = {
           },
           {
             "title": "What we learned",
-            "text": "We implemented this version internally, before working with clients. Testing was mainly with developers and product people who already understood the system. That familiarity hid difficulties that became clear when the sales team tried to use it. A cleaner interface had not removed the knowledge needed to configure an agent."
+            "text": "We implemented this version internally, before working with clients. Testing was mainly with developers and product people who already understood the system. That familiarity hid difficulties that became clear when the sales team tried to use it."
           }
         ],
         "imageKeys": [
@@ -77,7 +81,11 @@ export const everworker = {
           "first-home",
           "first-settings"
         ],
-        "label": "01 / Foundation"
+        "label": "01 / Foundation",
+        "takeaway": {
+          "label": "What we learned",
+          "text": "A cleaner interface had not removed the knowledge needed to configure an agent."
+        }
       },
       {
         "id": "learning",
@@ -123,7 +131,7 @@ export const everworker = {
           },
           {
             "title": "Result and next question",
-            "text": "The wizard was implemented and made starting easier. But when someone wanted different behavior or encountered an error, they returned to technical work. Helping people through onboarding was not enough; they needed support while editing, too."
+            "text": "The wizard was implemented and made starting easier. But when someone wanted different behavior or encountered an error, they returned to technical work."
           }
         ],
         "imageKeys": [
@@ -132,7 +140,11 @@ export const everworker = {
           "wizard-tools",
           "wizard-canvas"
         ],
-        "label": "03 / Guided creation"
+        "label": "03 / Guided creation",
+        "takeaway": {
+          "label": "The next design question",
+          "text": "Helping people through onboarding was not enough; they needed support while editing, too."
+        }
       },
       {
         "id": "assistant",
@@ -161,7 +173,10 @@ export const everworker = {
           "assistant-settings",
           "assistant-code"
         ],
-        "label": "04 / AI-assisted authoring"
+        "label": "04 / AI-assisted authoring",
+        "emphasis": [
+          "asked for confirmation before applying them"
+        ]
       },
       {
         "id": "direction",
@@ -186,7 +201,10 @@ export const everworker = {
           "worker-detail",
           "catalog-home"
         ],
-        "label": "05 / A change in direction"
+        "label": "05 / A change in direction",
+        "emphasis": [
+          "a ready solution to a business problem"
+        ]
       },
       {
         "id": "impact",
@@ -195,17 +213,22 @@ export const everworker = {
         "blocks": [
           {
             "title": "My impact",
-            "text": "My work helped move the platform from its first UX/UI redesign into guided creation and AI-assisted authoring. The wizard and assistant I proposed were implemented. I also helped connect customer feedback with the later catalog and website experience. These were concrete product changes, with qualitative evidence that nontechnical users could build and run workers."
+            "text": "My work helped move the platform from its first UX/UI redesign into guided creation and AI-assisted authoring. The wizard and assistant I proposed were implemented. I also helped connect customer feedback with the later catalog and website experience. These were concrete product changes, with qualitative evidence that nontechnical users could build and run workers.",
+            "tone": "outcome"
           },
           {
             "title": "The bigger lesson",
-            "text": "An easier builder does not automatically mean customers want to build. Improving usability helped people work with the product, while customer interviews changed our understanding of the job they wanted it to do. Those were different problems, and they required different responses."
+            "text": "Improving usability helped people work with the product, while customer interviews changed our understanding of the job they wanted it to do. Those were different problems, and they required different responses."
           },
           {
             "title": "What I would do differently",
             "text": "I would involve people outside the technical team earlier and follow a complete task through creation, changes and error recovery. I would also ask sooner whether customers wanted a building tool or a ready worker. That would help separate difficulty using the product from a lack of desire to do the work it asks of them."
           }
-        ]
+        ],
+        "takeaway": {
+          "label": "Key learning",
+          "text": "An easier builder does not automatically mean customers want to build."
+        }
       }
     ]
   },

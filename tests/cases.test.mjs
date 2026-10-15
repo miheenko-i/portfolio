@@ -74,9 +74,9 @@ test('hash parsing is bounded and unknown cases fail safely', () => {
 test('home lists every case with working routes and labeled image placeholders', async () => {
   await mount()
   assert.equal(container.querySelectorAll('.productRow').length, 6)
-  assert.equal(container.querySelectorAll('.imagePlaceholder').length, 5)
+  assert.equal(container.querySelectorAll('.imagePlaceholder').length, 4)
   for (const item of productCases) assert.ok(container.querySelector(`.caseReadLink[href="#case/${item.id}"]`))
-  assert.equal(container.querySelectorAll('.practiceItem').length, 2)
+  assert.equal(container.querySelectorAll('.practiceItem').length, 0)
 })
 
 test('every case can be opened, focused, and returned to selected work', async () => {
@@ -219,7 +219,7 @@ test('EverWorker renders seventeen original screenshots in coherent groups with 
 })
 
 test('Other cases retain their original layout without story-specific content', async () => {
-  for (const item of productCases.slice(1)) {
+  for (const item of productCases.filter(item => !item.story)) {
     await navigate(`#case/${item.id}`)
     await mount()
     assert.equal(container.querySelector('.caseStory'), null)
@@ -245,4 +245,86 @@ test('EverWorker metadata describes the role and scope, and section navigation k
   assert.equal(window.location.hash, '#case/everworker')
   assert.ok(container.querySelector('#story-process'))
   assert.match(container.querySelector('.caseStory').textContent, /n8n and Glean/)
+})
+
+
+test('Long-form cases use unquoted editorial takeaways and selective emphasis', async () => {
+  for (const id of ['everworker', 'travel-ai']) {
+    await navigate(`#case/${id}`)
+    await mount()
+    assert.equal(container.querySelectorAll('.caseTakeaway').length, 3)
+    assert.equal(container.querySelectorAll('blockquote').length, 0)
+    assert.ok(container.querySelectorAll('.caseStory strong').length >= 3)
+    for (const takeaway of container.querySelectorAll('.caseTakeaway')) {
+      assert.ok(takeaway.getAttribute('aria-label'))
+      assert.ok(takeaway.querySelector('p').textContent.length > 40)
+    }
+  }
+})
+
+test('Travel keeps the team, implementation and reported checkout outcome precise', async () => {
+  await navigate('#case/travel-ai')
+  await mount()
+  const facts = container.querySelector('.caseFacts').textContent
+  assert.match(facts, /Lead designer/)
+  assert.match(facts, /Two developers/)
+  const copy = container.querySelector('.caseStory').textContent
+  assert.match(copy, /Layla and Tripadvisor/)
+  assert.match(copy, /team implemented additional queries, hints, clearer actions and manual management/)
+  const result = container.querySelector('.caseOutcomeCallout').textContent
+  assert.match(result, /90-95%/)
+  assert.match(result, /around 100 test participants/)
+  assert.match(result, /Philippines/)
+  assert.match(result, /analytics I recall/)
+  assert.match(result, /checkout reach, not completed payment/)
+  assert.doesNotMatch(copy, /revenue|A\/B|doubled|original report|shut down/)
+  assert.doesNotMatch(copy, /[\u0400-\u04ff]/)
+  assert.equal(container.querySelector('.caseDownloads'), null)
+  const words = copy.trim().split(/\s+/).length
+  assert.ok(words >= 1000 && words <= 1600, `Travel story length: ${words}`)
+})
+
+test('Travel separates original audit evidence from the interactive reconstruction', async () => {
+  await navigate('#case/travel-ai')
+  await mount()
+  const reconstruction = container.querySelector('[aria-labelledby="story-reconstruction"]')
+  assert.match(reconstruction.textContent, /new interactive reconstruction/)
+  assert.match(reconstruction.textContent, /mock travel data/)
+  assert.match(reconstruction.textContent, /not screenshots of the historical deployed chat/)
+  const link = reconstruction.querySelector('.caseStoryLink')
+  assert.equal(link.href, 'https://simplenight-travel-assistant.miheenko.chatgpt.site/')
+  assert.equal(link.target, '_blank')
+  const images = [...container.querySelectorAll('.caseStory img')]
+  assert.ok(images.length === 13)
+  assert.equal(new Set(images.map(image => image.src)).size, images.length)
+  assert.equal(container.querySelectorAll('.imagePlaceholder').length, 0)
+  for (const image of images) {
+    assert.ok(image.alt.length > 30)
+    assert.equal(image.closest('a').href, image.src)
+    const bytes = await readFile(new URL(`../public/${image.getAttribute('src').replace('/portfolio/', '')}`, import.meta.url))
+    assert.equal(bytes.subarray(1, 4).toString(), 'PNG')
+    assert.equal(bytes.readUInt32BE(16), Number(image.getAttribute('width')))
+    assert.equal(bytes.readUInt32BE(20), Number(image.getAttribute('height')))
+  }
+  for (const figure of reconstruction.querySelectorAll('figure')) assert.match(figure.textContent, /Reconstruction/)
+  assert.ok(reconstruction.querySelectorAll('img').length === 6)
+  assert.equal(container.querySelectorAll('.caseStoryNav button').length, 4)
+})
+
+
+test('Homepage removes Studio Range and groups product skills without ratings', async () => {
+  await mount()
+  assert.equal(container.querySelector('#studio'), null)
+  assert.equal(container.querySelector('a[href="#studio"]'), null)
+  assert.equal(container.querySelector('.studioSection'), null)
+  assert.deepEqual([...container.querySelectorAll('.skillGroup h3')].map(h => h.textContent), ['Product & UX', 'UI & Design Systems', 'AI & Prototyping', 'Tools'])
+  const skills = container.querySelector('#skills').textContent
+  assert.match(skills, /UX audits/)
+  assert.match(skills, /Conversational AI/)
+  assert.match(skills, /HTML \/ CSS basics/)
+  assert.doesNotMatch(skills, /Google Slides|Media design|LLMs|%/)
+  assert.match(container.querySelectorAll('.skillGroup')[3].textContent, /HubSpot/)
+  const css = await readFile(new URL('../src/style.css', import.meta.url), 'utf8')
+  assert.match(css, /\.skillsSection \{ min-height: 0/)
+  assert.match(css, /\.contact \{ min-height: 0; justify-content: flex-start/)
 })

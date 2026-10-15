@@ -7,7 +7,7 @@ export function CaseImage({ image, compact = false, fullSize = false }) {
   const [failed, setFailed] = useState(false)
   useEffect(() => setFailed(false), [image.src])
   return (
-    <figure className={`caseImage${compact ? ' caseImageCompact' : ''}`}>
+    <figure className={`caseImage${compact ? ' caseImageCompact' : ''}`} style={!compact && image.displayWidth ? { maxWidth: image.displayWidth, width: '100%', justifySelf: 'center' } : undefined}>
       {image.src && !failed ? (
         fullSize ? (
           <a className="caseImageLink" href={asset(image.src)} target="_blank" rel="noreferrer" aria-label={`${image.title}, open full-size screenshot in a new tab`}>
@@ -52,6 +52,13 @@ function CaseDownloads({ item }) {
   )
 }
 
+function CaseCopy({ text, emphasis = [] }) {
+  if (!emphasis.length) return text
+  const terms = emphasis.filter(Boolean).sort((a, b) => b.length - a.length)
+  const pattern = new RegExp(`(${terms.map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g')
+  return text.split(pattern).map((part, index) => terms.includes(part) ? <strong key={index}>{part}</strong> : part)
+}
+
 function StorySection({ section, item }) {
   return (
     <section className={`caseStorySection${section.imageKeys ? ' hasScreens' : ''}`} aria-labelledby={`story-${section.id}`}>
@@ -61,10 +68,21 @@ function StorySection({ section, item }) {
           <h2 id={`story-${section.id}`} tabIndex="-1">{section.title}</h2>
         </div>
         <div className="caseBody">
-          {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-          {section.blocks?.map((block) => <div className="caseStoryBlock" key={block.title}><h3>{block.title}</h3><p>{block.text}</p></div>)}
+          {section.paragraphs.map((paragraph) => <p key={paragraph}><CaseCopy text={paragraph} emphasis={section.emphasis} /></p>)}
+          {section.blocks?.map((block) => <div className={`caseStoryBlock${block.tone === 'outcome' ? ' caseOutcomeBlock' : ''}`} key={block.title}><h3>{block.title}</h3><p><CaseCopy text={block.text} emphasis={section.emphasis} /></p></div>)}
+          {section.callout && <aside className="caseOutcomeCallout" aria-label={section.callout.label}>
+            <span className="caseEditorialLabel">{section.callout.label}</span>
+            <p className="caseOutcomeValue">{section.callout.value}</p>
+            <p className="caseOutcomeContext">{section.callout.text}</p>
+          </aside>}
+          {section.link && <a className="textLink caseStoryLink" href={section.link.url} target="_blank" rel="noreferrer">{section.link.label} <span aria-hidden="true">↗</span></a>}
         </div>
       </div>
+      {section.takeaway && <aside className="caseTakeaway" aria-label={section.takeaway.label}>
+        <span className="caseEditorialLabel">{section.takeaway.label}</span>
+        <p>{section.takeaway.text}</p>
+      </aside>}
+      {section.visualNote && <p className="caseNote caseVisualCredit">{section.visualNote}</p>}
       {section.id === 'foundation' && <p className="caseNote caseVisualCredit">{item.story.visualNote}</p>}
       {section.imageKeys && <div className="caseScreenGroup">
         {section.imageKeys.map((key) => <CaseImage image={item.images.find((image) => image.key === key)} fullSize key={key} />)}

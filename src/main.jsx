@@ -6,54 +6,6 @@ import { CaseStudy, CaseImage } from './CaseStudy.jsx'
 
 const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 
-const selectedWork = [
-  {
-    title: 'Digital products and dashboards',
-    company: 'ISDK',
-    type: 'UI / UX, media, web',
-    year: '2022 / 2026',
-    visual: 'web',
-    text:
-      'UI prototypes, dashboards, promo websites, landing pages, pre sales presentations, blog visuals and design systems for internal products and client projects.',
-  },
-  {
-    title: 'Executive communication',
-    company: 'McKinsey & Company',
-    type: 'Decks and systems',
-    year: '2019 / 2022',
-    visual: 'print',
-    text:
-      'Executive decks, workshops, print materials, Tableau and Power BI dashboard improvement, complex visual communication and design process coordination.',
-  },
-]
-
-const studioRange = [
-  {
-    title: 'AI product interface systems',
-    type: 'Product UI',
-  },
-  {
-    title: 'Brand marks and visual language',
-    type: 'Identity',
-  },
-  {
-    title: 'Executive presentation systems',
-    type: 'Slides',
-  },
-  {
-    title: 'Motion, launch and campaign assets',
-    type: 'Media',
-  },
-  {
-    title: 'Interactive product prototypes',
-    type: 'Prototype',
-  },
-  {
-    title: 'Dashboards and complex communication',
-    type: 'Systems',
-  },
-]
-
 const experience = [
   {
     role: 'Product and Web Designer',
@@ -103,43 +55,10 @@ const experience = [
 ]
 
 const skillGroups = [
-  {
-    title: 'Product and UX',
-    items: [
-      'Product design',
-      'UX / UI',
-      'Interactive prototypes',
-      'Product demos',
-      'Design systems',
-      'Dashboards',
-      'Prototyping',
-    ],
-  },
-  {
-    title: 'Web and AI',
-    items: [
-      'Web design',
-      'CSS',
-      'HubSpot',
-      'AI workflows',
-      'AI agents',
-      'Automation',
-    ],
-  },
-  {
-    title: 'Media and communication',
-    items: [
-      'Media design',
-      'Video design',
-      'Presentation design',
-      'Graphics',
-      'Brand identity',
-    ],
-  },
-  {
-    title: 'Tools',
-    items: ['Figma', 'Adobe Creative Suite', 'PowerPoint', 'Google Slides', 'Codex', 'LLMs'],
-  },
+  { title: 'Product & UX', items: ['Complex workflows', 'User journeys and scenarios', 'UX audits', 'Customer interviews', 'Interaction design'] },
+  { title: 'UI & Design Systems', items: ['Product UI', 'Design systems', 'Responsive web design', 'Dashboards', 'Visual communication'] },
+  { title: 'AI & Prototyping', items: ['Conversational AI', 'AI agent workflows', 'Interactive prototypes', 'Product demos', 'AI-assisted building', 'HTML / CSS basics'] },
+  { title: 'Tools', items: ['Figma', 'Codex', 'Adobe Creative Suite', 'PowerPoint', 'HubSpot'] },
 ]
 
 function SplitText({ text }) {
@@ -231,9 +150,6 @@ export function App() {
         <nav className="nav" aria-label="Main navigation" id="main-navigation">
           <a href="#work" onClick={() => setIsMenuOpen(false)}>
             Work
-          </a>
-          <a href="#studio" onClick={() => setIsMenuOpen(false)}>
-            Studio
           </a>
           <a href="#experience" onClick={() => setIsMenuOpen(false)}>
             Experience
@@ -339,26 +255,6 @@ export function App() {
         </div>
       </section>
 
-      <section className="section studioSection" id="studio">
-        <div className="sectionHead reveal">
-          <h2>
-            <SplitText text="Studio range" />
-          </h2>
-        </div>
-
-        <div className="practiceList">
-          {selectedWork.map((item) => <article className="practiceItem" key={item.company}><span>{item.company}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}
-        </div>
-        <div className="studioGrid">
-          {studioRange.map((item, index) => (
-            <article className="studioItem reveal" key={item.title} style={{ '--i': index }}>
-              <span>{item.type}</span>
-              <h4>{item.title}</h4>
-            </article>
-          ))}
-        </div>
-      </section>
-
       <section className="section resumeSection" id="experience">
         <div className="sectionHead reveal">
           <h2>
@@ -456,4 +352,5 @@ if (rootElement) createRoot(rootElement).render(
     <App />
   </React.StrictMode>,
 )
+
 
