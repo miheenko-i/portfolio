@@ -14,13 +14,13 @@ The existing React/Vite portfolio now has six product case studies. EverWorker i
 4. Add a descriptive `alt` and update `caption` to describe the actual image and its design credit.
 5. Run `npm test` and `npm run build`, then check desktop and phone layouts. A failed image falls back to an explicit placeholder instead of a broken preview.
 
-The first image in each case is also its work-list cover. EverWorker uses five original, owner-approved project screenshots. Other cases still use explicit placeholders. Never publish private source links.
+The first image in each case is also its work-list cover. EverWorker uses sixteen original, owner-approved project screenshots. Other cases still use explicit placeholders. Never publish private source links.
 
 ## Image checklist
 
 | Case | Needed images |
 | --- | --- |
-| EverWorker | Five original PNG screens in `public/cases/everworker/`: developer-built starting point, first home redesign, setup wizard, canvas assistant and worker catalog. Each can be opened at full size. Keep the design credits and illustrative-data captions. |
+| EverWorker | Sixteen original PNG screens in `public/cases/everworker/`: studio before/after, home and settings, canvas guidance and agent library, four wizard/flow screens, three assistant/editor screens, and three catalog/detail screens. Each opens at full size. Keep the design credits and illustrative-data note. |
 | IntoSquare | One connected plugin/extension import; source Figma layout beside editable Squarespace result and a mobile check. |
 | Simplenight Demo Platform | Sanitized company/demo hierarchy; AI-assisted dataset update and review. |
 | Travel AI | Manual vs AI itinerary controls; a changed event visibly reflected in the plan. |
