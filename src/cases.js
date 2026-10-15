@@ -1,40 +1,9 @@
+import { everworker } from './everworker.js'
+
 // Keep publishable copy here. Private source material does not belong in this repository.
 // Each image can be replaced independently; see CASE_STUDIES.md.
 export const productCases = [
-  {
-    id: 'everworker',
-    company: 'EverWorker',
-    title: 'Shaping an AI workforce platform',
-    category: 'B2B SaaS / AI agents',
-    period: 'Started in 2022',
-    summary: 'A canvas and a complementary chat experience for creating AI workers, developed across three platform versions.',
-    intro: 'EverWorker began as a developer-built platform. Starting in 2022, I designed its first user-friendly interface, then a new design for the second version. For the third version, I contributed product logic while another studio created the visual design.',
-    role: 'Platform design for versions one and two. Product logic for version three; its visual design was created by another studio.',
-    stage: 'Three platform versions',
-    downloads: [
-      { label: 'Case study', format: 'PDF, Russian', path: 'downloads/everworker/EverWorker_Product_Case_RU.pdf' },
-      { label: 'Editable case study', format: 'DOCX, Russian', path: 'downloads/everworker/EverWorker_Product_Case_RU.docx' },
-      { label: 'Design screenshots', format: 'ZIP, 11 screens', path: 'downloads/everworker/EverWorker_Design_Screenshots.zip' },
-    ],
-    problem: 'The initial developer-built interface was technically complex for end users without a development background. The design goal was to make that creation process easier to approach while retaining the existing canvas.',
-    contribution: 'I designed the first interface version for the existing platform starting in 2022 and the new design for version two. I designed the canvas, then a chat experience that complemented it by automating the creation of workers. For version three, I contributed the logic; another studio created the visual design.',
-    evolution: [
-      { title: 'First version', text: 'Designed the first user-friendly interface for the developer-built platform, starting in 2022.' },
-      { title: 'Second version', text: 'Created a new design for the next version of the platform.' },
-      { title: 'Third version', text: 'Contributed product logic. Another studio created the visual design.' },
-    ],
-    decisions: [
-      { title: 'Add a conversational path', text: 'The chat automated worker creation to make the task less technically demanding for non-developers. This was the design goal; no measured usability improvement is claimed here.' },
-      { title: 'Complement the canvas', text: 'Chat was added alongside the canvas rather than replacing it. The case shows two connected ways to approach worker creation, with clear authorship boundaries across the three platform versions.' },
-    ],
-    outcome: 'The work developed across three platform versions and included both canvas and conversational worker creation. The case describes my design and logic contributions without claiming measured adoption or business impact.',
-    limit: 'The version chronology starts in 2022. Later version dates and quantitative results are not included here.',
-    images: [
-      { key: 'v1', title: 'First platform version', caption: 'First interface design by Ilia Mikheenko for the existing developer-built platform.', src: null, alt: '' },
-      { key: 'v2', title: 'Second platform version', caption: 'Second-version interface redesign by Ilia Mikheenko.', src: null, alt: '' },
-      { key: 'v3', title: 'Canvas and conversational creation', caption: 'Canvas and complementary conversational worker creation. Version-three visual design belongs to another studio; Ilia contributed its product logic.', src: null, alt: '' },
-    ],
-  },
+  everworker,
   {
     id: 'intosquare',
     company: 'IntoSquare',

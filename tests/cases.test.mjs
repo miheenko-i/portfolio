@@ -43,22 +43,27 @@ test('six unique, complete case studies and no private source URLs', () => {
   assert.equal(productCases.length, 6)
   assert.equal(new Set(productCases.map((item) => item.id)).size, 6)
   for (const item of productCases) {
-    for (const key of ['id', 'company', 'title', 'role', 'problem', 'contribution', 'outcome', 'limit']) assert.ok(item[key], `${item.id}: ${key}`)
+    for (const key of (item.story ? ['id', 'company', 'title', 'role', 'story'] : ['id', 'company', 'title', 'role', 'problem', 'contribution', 'outcome', 'limit'])) assert.ok(item[key], `${item.id}: ${key}`)
     assert.ok(item.images.length)
-    assert.ok(item.decisions.length >= 2)
+    assert.ok(item.story ? item.story.sections.length >= 2 : item.decisions.length >= 2)
     assert.doesNotMatch(JSON.stringify(item), /mail\.google|chatgpt\.com\/c\/|drive\.google|figma\.com\/file|[—–·]/)
   }
 })
 
-test('EverWorker leads with accurate scope and contribution boundaries', () => {
+test('EverWorker keeps the interview chronology and contribution boundaries', () => {
   const item = productCases[0]
   assert.equal(item.id, 'everworker')
   assert.match(item.intro, /developer-built/)
-  assert.match(item.intro, /2022/)
+  assert.match(item.period, /2022/)
   assert.match(item.role, /another studio/)
-  assert.match(item.contribution, /complemented/)
-  assert.match(item.problem, /without a development background/)
-  assert.equal(item.evolution.length, 3)
+  assert.match(item.story.period, /2025.*2026/)
+  const copy = JSON.stringify(item.story)
+  assert.match(copy, /already let people connect nodes/)
+  assert.match(copy, /chat for testing existing agents/)
+  assert.match(copy, /proposed a setup wizard/)
+  assert.match(copy, /Before applying changes/)
+  assert.match(copy, /paying customers/)
+  assert.doesNotMatch(copy, /3×|3x|threefold|shut down|everyone/)
 })
 
 test('hash parsing is bounded and unknown cases fail safely', () => {
@@ -69,7 +74,7 @@ test('hash parsing is bounded and unknown cases fail safely', () => {
 test('home lists every case with working routes and labeled image placeholders', async () => {
   await mount()
   assert.equal(container.querySelectorAll('.productRow').length, 6)
-  assert.equal(container.querySelectorAll('.imagePlaceholder').length, 6)
+  assert.equal(container.querySelectorAll('.imagePlaceholder').length, 5)
   for (const item of productCases) assert.ok(container.querySelector(`.caseReadLink[href="#case/${item.id}"]`))
   assert.equal(container.querySelectorAll('.practiceItem').length, 2)
 })
@@ -81,7 +86,7 @@ test('every case can be opened, focused, and returned to selected work', async (
     assert.equal(container.querySelector('#case-title').textContent, item.title)
     assert.equal(document.title, `${item.company} | Ilia Mikheenko`)
     assert.equal(document.activeElement.id, 'case-title')
-    assert.ok(container.textContent.includes('Outcome and limits'))
+    assert.ok(container.textContent.includes(item.story ? 'What I learned' : 'Outcome and limits'))
     await click(container.querySelector('.caseBack'))
     assert.ok(container.querySelector('#work'))
     assert.equal(container.querySelectorAll('.productRow.is-visible').length, 6)
@@ -91,7 +96,7 @@ test('every case can be opened, focused, and returned to selected work', async (
 test('direct case deep links render on first load', async () => {
   window.history.replaceState({}, '', '/portfolio/#case/everworker')
   await mount()
-  assert.match(container.querySelector('#case-title').textContent, /AI workforce/)
+  assert.match(container.querySelector('#case-title').textContent, /AI workers/)
   assert.equal(container.querySelector('.hero'), null)
 })
 
@@ -108,7 +113,7 @@ test('browser back and forward restore the correct case', async () => {
   await navigate('#case/everworker')
   await navigate('#case/intosquare')
   await act(async () => { window.history.back(); await settle() })
-  assert.match(container.querySelector('#case-title').textContent, /AI workforce/)
+  assert.match(container.querySelector('#case-title').textContent, /AI workers/)
   await act(async () => { window.history.forward(); await settle() })
   assert.match(container.querySelector('#case-title').textContent, /Figma/)
 })
@@ -165,24 +170,47 @@ test('mobile quick contact stays inside the navigation menu', async () => {
 
 
 
-test('EverWorker offers three public base-path-aware downloads', async () => {
+test('EverWorker removes download links while retaining the published files', async () => {
   window.history.replaceState({}, '', '/portfolio/#case/everworker')
   await mount()
-  const links = [...container.querySelectorAll('.caseDownloadList a')]
-  assert.equal(links.length, 3)
-  const expected = ['EverWorker_Product_Case_RU.pdf', 'EverWorker_Product_Case_RU.docx', 'EverWorker_Design_Screenshots.zip']
-  for (const [index, link] of links.entries()) {
-    assert.equal(link.getAttribute('href'), `/portfolio/downloads/everworker/${expected[index]}`)
-    assert.equal(link.getAttribute('download'), expected[index])
-    const bytes = await readFile(new URL(`../public/downloads/everworker/${expected[index]}`, import.meta.url))
+  assert.equal(container.querySelector('.caseDownloads'), null)
+  assert.equal(container.querySelectorAll('a[download]').length, 0)
+  assert.doesNotMatch(container.querySelector('.caseStudy').textContent, /Russian|DOCX|ZIP|[\u0400-\u04ff]/)
+  for (const name of ['EverWorker_Product_Case_RU.pdf', 'EverWorker_Product_Case_RU.docx', 'EverWorker_Design_Screenshots.zip']) {
+    const bytes = await readFile(new URL(`../public/downloads/everworker/${name}`, import.meta.url))
     assert.ok(bytes.length > 1000)
-    assert.equal(bytes.subarray(0, index === 0 ? 4 : 2).toString(), index === 0 ? '%PDF' : 'PK')
   }
 })
 
-test('download section leaves other cases unchanged', async () => {
-  window.history.replaceState({}, '', '/portfolio/#case/intosquare')
+test('EverWorker renders five original screenshots in story order with full-size links', async () => {
+  window.history.replaceState({}, '', '/portfolio/#case/everworker')
   await mount()
-  assert.equal(container.querySelector('.caseDownloads'), null)
-  assert.equal(productCases.filter(item => item.downloads).length, 1)
+  const sections = [...container.querySelectorAll('.caseStorySection')]
+  assert.equal(sections.length, 5)
+  assert.equal(container.querySelectorAll('.imagePlaceholder').length, 0)
+  for (const section of sections) {
+    const image = section.querySelector('img')
+    const link = section.querySelector('.caseImageLink')
+    assert.ok(image.alt.length > 30)
+    assert.equal(link.getAttribute('href'), image.getAttribute('src'))
+    assert.equal(link.target, '_blank')
+    assert.ok(image.getAttribute('width') && image.getAttribute('height'))
+    const bytes = await readFile(new URL(`../public/${image.getAttribute('src').replace('/portfolio/', '')}`, import.meta.url))
+    assert.equal(bytes.subarray(1, 4).toString(), 'PNG')
+  }
+  assert.match(sections[0].querySelector('img').src, /early-studio/)
+  assert.match(sections[4].querySelector('img').src, /worker-catalog/)
+  const words = container.querySelector('.caseStudy').textContent.trim().split(/\s+/).length
+  assert.ok(words < 850, `Keep the case concise: ${words} words`)
+})
+
+test('Other cases retain their original layout without story-specific content', async () => {
+  for (const item of productCases.slice(1)) {
+    await navigate(`#case/${item.id}`)
+    await mount()
+    assert.equal(container.querySelector('.caseStory'), null)
+    assert.equal(container.querySelectorAll('.caseDownloadList').length, 0)
+    assert.equal(container.querySelectorAll('.caseImage').length, item.images.length)
+    assert.ok(container.textContent.includes(item.problem))
+  }
 })
