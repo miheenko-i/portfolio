@@ -52,6 +52,27 @@ function CaseDownloads({ item }) {
   )
 }
 
+function StorySection({ section, item }) {
+  return (
+    <section className={`caseStorySection${section.imageKeys ? ' hasScreens' : ''}`} aria-labelledby={`story-${section.id}`}>
+      <div className="caseSection">
+        <div className="caseSectionHeading">
+          {section.label && <p className="casePhaseLabel">{section.label}</p>}
+          <h2 id={`story-${section.id}`} tabIndex="-1">{section.title}</h2>
+        </div>
+        <div className="caseBody">
+          {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          {section.blocks?.map((block) => <div className="caseStoryBlock" key={block.title}><h3>{block.title}</h3><p>{block.text}</p></div>)}
+        </div>
+      </div>
+      {section.id === 'foundation' && <p className="caseNote caseVisualCredit">{item.story.visualNote}</p>}
+      {section.imageKeys && <div className={`caseScreenGroup${section.imageKeys.length % 2 ? ' hasLeadScreen' : ''}`}>
+        {section.imageKeys.map((key) => <CaseImage image={item.images.find((image) => image.key === key)} fullSize key={key} />)}
+      </div>}
+    </section>
+  )
+}
+
 export function CaseStudy({ item }) {
   const next = productCases[(productCases.indexOf(item) + 1) % productCases.length]
   return (
@@ -62,9 +83,11 @@ export function CaseStudy({ item }) {
         <h1 id="case-title" tabIndex="-1">{item.title}</h1>
         <p className="caseIntro">{item.intro}</p>
         <dl className="caseFacts">
-          <div><dt>My role</dt><dd>{item.role}</dd></div>
-          <div><dt>Context</dt><dd>{item.category}<br />{item.period}</dd></div>
-          <div><dt>Stage</dt><dd>{item.stage}</dd></div>
+          {item.facts ? item.facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.text}</dd></div>) : <>
+            <div><dt>My role</dt><dd>{item.role}</dd></div>
+            <div><dt>Context</dt><dd>{item.category}<br />{item.period}</dd></div>
+            <div><dt>Stage</dt><dd>{item.stage}</dd></div>
+          </>}
         </dl>
       </header>
 
@@ -73,19 +96,16 @@ export function CaseStudy({ item }) {
       {item.story ? (
         <div className="caseStory">
           <p className="caseNote caseStoryPeriod">{item.story.period}</p>
-          {item.story.sections.map((section) => (
-            <section className="caseStorySection" key={section.title}>
-              <div className="caseSection">
-                <h2>{section.title}</h2>
-                <div className="caseBody">{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-              </div>
-              <CaseImage image={item.images.find((image) => image.key === section.imageKey)} fullSize />
-            </section>
-          ))}
-          <section className="caseSection caseOutcome">
-            <h2>What I learned</h2>
-            <div className="caseBody"><p>{item.story.closing}</p></div>
-          </section>
+          <nav className="caseStoryNav" aria-label="Case study sections">
+            {item.story.sections.filter((section) => !section.label).map((section) => (
+              <button type="button" key={section.id} onClick={() => {
+                const target = document.getElementById(`story-${section.id}`)
+                target?.focus({ preventScroll: true })
+                target?.scrollIntoView({ behavior: 'auto', block: 'start' })
+              }}>{section.title}</button>
+            ))}
+          </nav>
+          {item.story.sections.map((section) => <StorySection section={section} item={item} key={section.id} />)}
         </div>
       ) : (
         <>

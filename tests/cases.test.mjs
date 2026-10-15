@@ -55,13 +55,13 @@ test('EverWorker keeps the interview chronology and contribution boundaries', ()
   assert.equal(item.id, 'everworker')
   assert.match(item.intro, /developer-built/)
   assert.match(item.period, /2022/)
-  assert.match(item.role, /another studio/)
+  assert.match(JSON.stringify(item.story), /another studio/)
   assert.match(item.story.period, /2025.*2026/)
   const copy = JSON.stringify(item.story)
-  assert.match(copy, /already let people connect nodes/)
+  assert.match(copy, /already connected visual nodes/)
   assert.match(copy, /chat for testing existing agents/)
   assert.match(copy, /proposed a setup wizard/)
-  assert.match(copy, /Before applying changes/)
+  assert.match(copy, /before applying them/)
   assert.match(copy, /paying customers/)
   assert.doesNotMatch(copy, /3×|3x|threefold|shut down|everyone/)
 })
@@ -86,7 +86,7 @@ test('every case can be opened, focused, and returned to selected work', async (
     assert.equal(container.querySelector('#case-title').textContent, item.title)
     assert.equal(document.title, `${item.company} | Ilia Mikheenko`)
     assert.equal(document.activeElement.id, 'case-title')
-    assert.ok(container.textContent.includes(item.story ? 'What I learned' : 'Outcome and limits'))
+    assert.ok(container.textContent.includes(item.story ? 'Impact & Learnings' : 'Outcome and limits'))
     await click(container.querySelector('.caseBack'))
     assert.ok(container.querySelector('#work'))
     assert.equal(container.querySelectorAll('.productRow.is-visible').length, 6)
@@ -96,7 +96,7 @@ test('every case can be opened, focused, and returned to selected work', async (
 test('direct case deep links render on first load', async () => {
   window.history.replaceState({}, '', '/portfolio/#case/everworker')
   await mount()
-  assert.match(container.querySelector('#case-title').textContent, /AI workers/)
+  assert.match(container.querySelector('#case-title').textContent, /ready-made workers/)
   assert.equal(container.querySelector('.hero'), null)
 })
 
@@ -113,7 +113,7 @@ test('browser back and forward restore the correct case', async () => {
   await navigate('#case/everworker')
   await navigate('#case/intosquare')
   await act(async () => { window.history.back(); await settle() })
-  assert.match(container.querySelector('#case-title').textContent, /AI workers/)
+  assert.match(container.querySelector('#case-title').textContent, /ready-made workers/)
   await act(async () => { window.history.forward(); await settle() })
   assert.match(container.querySelector('#case-title').textContent, /Figma/)
 })
@@ -182,15 +182,19 @@ test('EverWorker removes download links while retaining the published files', as
   }
 })
 
-test('EverWorker renders five original screenshots in story order with full-size links', async () => {
+test('EverWorker renders sixteen original screenshots in coherent groups with full-size links', async () => {
   window.history.replaceState({}, '', '/portfolio/#case/everworker')
   await mount()
   const sections = [...container.querySelectorAll('.caseStorySection')]
-  assert.equal(sections.length, 5)
+  assert.equal(sections.length, 9)
+  const groups = [...container.querySelectorAll('.caseScreenGroup')]
+  assert.deepEqual(groups.map(group => group.querySelectorAll('img').length), [4, 2, 4, 3, 3])
   assert.equal(container.querySelectorAll('.imagePlaceholder').length, 0)
-  for (const section of sections) {
-    const image = section.querySelector('img')
-    const link = section.querySelector('.caseImageLink')
+  const images = [...container.querySelectorAll('.caseStory img')]
+  assert.equal(images.length, 16)
+  assert.equal(new Set(images.map(image => image.src)).size, 16)
+  for (const image of images) {
+    const link = image.closest('.caseImageLink')
     assert.ok(image.alt.length > 30)
     assert.equal(link.getAttribute('href'), image.getAttribute('src'))
     assert.equal(link.target, '_blank')
@@ -198,11 +202,16 @@ test('EverWorker renders five original screenshots in story order with full-size
     assert.equal(image.style.aspectRatio, `${image.getAttribute('width')} / ${image.getAttribute('height')}`)
     const bytes = await readFile(new URL(`../public/${image.getAttribute('src').replace('/portfolio/', '')}`, import.meta.url))
     assert.equal(bytes.subarray(1, 4).toString(), 'PNG')
+    assert.equal(bytes.readUInt32BE(16), Number(image.getAttribute('width')))
+    assert.equal(bytes.readUInt32BE(20), Number(image.getAttribute('height')))
   }
-  assert.match(sections[0].querySelector('img').src, /early-studio/)
-  assert.match(sections[4].querySelector('img').src, /worker-catalog/)
+  assert.match(images[0].src, /early-studio/)
+  assert.match(images[15].src, /catalog-home/)
   const words = container.querySelector('.caseStudy').textContent.trim().split(/\s+/).length
-  assert.ok(words < 850, `Keep the case concise: ${words} words`)
+  assert.ok(words >= 1300 && words <= 1800, `Keep the expanded case readable: ${words} words`)
+  const css = await readFile(new URL('../src/style.css', import.meta.url), 'utf8')
+  assert.match(css, /@media \(max-width: 820px\) \{\s*\.caseScreenGroup \{ grid-template-columns: 1fr/)
+
 })
 
 test('Other cases retain their original layout without story-specific content', async () => {
@@ -214,4 +223,22 @@ test('Other cases retain their original layout without story-specific content', 
     assert.equal(container.querySelectorAll('.caseImage').length, item.images.length)
     assert.ok(container.textContent.includes(item.problem))
   }
+})
+
+
+test('EverWorker metadata describes the role and scope, and section navigation keeps its route', async () => {
+  window.history.replaceState({}, '', '/portfolio/#case/everworker')
+  await mount()
+  const facts = container.querySelector('.caseFacts').textContent
+  assert.match(facts, /interaction design and customer feedback/)
+  assert.match(facts, /guided setup and AI-assisted authoring/)
+  assert.doesNotMatch(facts, /another studio|Stage|Context/)
+  await act(async () => { await settle() })
+  const buttons = [...container.querySelectorAll('.caseStoryNav button')]
+  assert.equal(buttons.length, 4)
+  await click(buttons[3])
+  assert.equal(document.activeElement.id, 'story-impact')
+  assert.equal(window.location.hash, '#case/everworker')
+  assert.ok(container.querySelector('#story-process'))
+  assert.match(container.querySelector('.caseStory').textContent, /n8n and Glean/)
 })
